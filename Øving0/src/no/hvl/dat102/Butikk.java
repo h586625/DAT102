@@ -34,31 +34,29 @@ public class Butikk {
 	// j)
 	public void leggInnNyVare(int varenr) {
 		if(erLedigPlass() && finnVare(varenr) == -1) {
-			varer[antallVarer] = new Vare(varenr);
 			antallVarer++;
-		}
-		
-		// ascending varenr
-		// e.g. [1204, 1304, 1109, 5091]
-		Vare[] sorterteVarer = new Vare[antallVarer];
-		Vare tmp = varer[0];
-		boolean sortertPar = false;
-		
-		for(int i = 0; i < antallVarer; i++) {
-			for(int j = i+1; j < antallVarer-1; j++) {
-				if(varer[i].getVarenr() > varer[j].getVarenr()) {
-					sorterteVarer[i] = varer[j];
-				} else {
-					sorterteVarer[i] = varer[i];
+			// ascending varenr
+			// e.g. [1204, 1304, 1109, 5091]			
+			for(int i = 0; i < antallVarer; i++) {
+				if (varenr > varer[i].getVarenr()) {
+					i++;
 				}
+				
+				for(int j = antallVarer; antallVarer > i; j++) {
+					varer[j] = varer[j-1];
+					j--;
+				}
+				
+				varer[i] = new Vare(varenr);				
 			}
+		} else {
+			System.out.println("Enten er lageret fullt eller så eksisterer allerede varen.");
 		}
-		
 	}
 	
 	@Override
 	public String toString() {
-		String varerStr = "" + antallVarer;
+		String varerStr = "";
 		for(int i = 0; i < antallVarer; i++) {
 			varerStr += varer[i].toString() + "\n\n";
 		}

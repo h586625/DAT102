@@ -108,6 +108,15 @@ public class Butikk {
 		}
 	}
 	
+	// n)
+	public double salgsVerdi() {
+		double totalSalgsVerdi = 0.0;
+		for(int i = 0; i < antallVarer; i++) {
+			totalSalgsVerdi += varer[i].getPris();
+		}
+		return totalSalgsVerdi;
+	}
+	
 	@Override
 	public String toString() {
 		String varerStr = "";

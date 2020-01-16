@@ -117,6 +117,7 @@ public class Butikk {
 		return totalSalgsVerdi;
 	}
 	
+	// o)
 	public String skrivUt() {
 		String varerStr = "";
 		for(int i = 0; i < antallVarer; i++) {
@@ -125,14 +126,21 @@ public class Butikk {
 		return varerStr;
 	}
 	
+	// p)
 	public static void main(String[] args) {
-		Butikk butikk = new Butikk("Kiwi", 5);
+		Butikk butikk = new Butikk("Kiwi", 100);
 		butikk.leggInnNyVare(2234);
 		butikk.leggInnNyVare(1234);
 		butikk.leggInnNyVare(6234);
 		butikk.leggInnNyVare(1934);
 		butikk.leggInnNyVare(1233);
-		System.out.println(butikk.skrivUt());
+		System.out.println("Vare 6234 er på indeks: " + butikk.finnVare(6234));
+		System.out.println("Ledig plass: " + butikk.erLedigPlass());
+		butikk.slettVare(1934);
+		butikk.grossInnkjop(2234, 5);
+		butikk.detaljSalg(2234);
+		System.out.println("Total salgsverdi: " + butikk.salgsVerdi());
+		System.out.println("\n" + butikk.skrivUt());
 	}
 
 }

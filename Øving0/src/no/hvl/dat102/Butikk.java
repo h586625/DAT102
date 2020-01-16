@@ -117,8 +117,7 @@ public class Butikk {
 		return totalSalgsVerdi;
 	}
 	
-	@Override
-	public String toString() {
+	public String skrivUt() {
 		String varerStr = "";
 		for(int i = 0; i < antallVarer; i++) {
 			varerStr += varer[i].toString() + "\n\n";
@@ -133,7 +132,7 @@ public class Butikk {
 		butikk.leggInnNyVare(6234);
 		butikk.leggInnNyVare(1934);
 		butikk.leggInnNyVare(1233);
-		System.out.println(butikk.toString());
+		System.out.println(butikk.skrivUt());
 	}
 
 }

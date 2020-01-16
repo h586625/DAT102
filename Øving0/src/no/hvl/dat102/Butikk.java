@@ -78,6 +78,21 @@ public class Butikk {
 		}
 	}
 	
+	// l)
+	public void detaljSalg(int varenr) {
+		int indeks = finnVare(varenr);
+		if(indeks != -1) {
+			int antall = varer[indeks].getAntall();
+			if(antall == 0) {
+				System.out.println("Det er 0 stk. igjen av denne varen.");
+			} else {
+				varer[indeks].setAntall(antall-1);
+			}
+		} else {
+			System.out.println("Varen er ikke registrert.");
+		}
+	}
+	
 	@Override
 	public String toString() {
 		String varerStr = "";

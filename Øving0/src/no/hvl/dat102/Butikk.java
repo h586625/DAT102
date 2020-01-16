@@ -63,6 +63,21 @@ public class Butikk {
 		}
 	}
 	
+	// k)
+	public void slettVare(int varenr) {
+		if(finnVare(varenr) == -1) {
+			System.out.println("Varen fins ikke.");
+		} else {
+			antallVarer--;
+			int i = finnVare(varenr);
+			while(i < antallVarer) {
+				varer[i] = varer[i+1];
+				i++;
+			}
+			varer[antallVarer] = null;
+		}
+	}
+	
 	@Override
 	public String toString() {
 		String varerStr = "";
@@ -72,9 +87,6 @@ public class Butikk {
 		return varerStr;
 	}
 	
-	// k)
-	
-
 	public static void main(String[] args) {
 		Butikk butikk = new Butikk("Kiwi", 5);
 		butikk.leggInnNyVare(2234);

@@ -33,24 +33,33 @@ public class Butikk {
 	
 	// j)
 	public void leggInnNyVare(int varenr) {
-		if(erLedigPlass() && finnVare(varenr) == -1) {
-			antallVarer++;
-			// ascending varenr
-			// e.g. [1204, 1304, 1109, 5091]			
-			for(int i = 0; i < antallVarer; i++) {
-				if (varenr > varer[i].getVarenr()) {
-					i++;
-				}
-				
-				for(int j = antallVarer; antallVarer > i; j++) {
-					varer[j] = varer[j-1];
-					j--;
-				}
-				
-				varer[i] = new Vare(varenr);				
-			}
+		if(!erLedigPlass() && finnVare(varenr) != -1) {
+			System.out.println("Enten er lageret fullt eller så eksisterer varen allerede.");
 		} else {
-			System.out.println("Enten er lageret fullt eller så eksisterer allerede varen.");
+			// EXAMPLE OF ALGORITHM (ascending varenr):
+			// ========================================
+			// varer[0:null, 1:null, 2:null, 3:null, 4:null, 5:null]
+			// 0:1204, 1:2234, 2:3450, 3:4509, 4:null, 5:null antallVarer: 3
+			// leggInnNyVare(1234); i:1
+			// 0:1204, 1:1234, 2:2234, 3:3450, 4:4509, 5:null, antallVarer: 4
+			
+			// i dictates where the element will be placed
+			int i = 0;
+			while(i < antallVarer && varenr > varer[i].getVarenr()) {
+				i++;
+			}
+			
+			// shift every element after "i" one slot/index to the right
+			// unless "i" is already farthest to the right
+			int j = antallVarer;
+			while(j > i) {
+				varer[j] = varer[j-1];
+				j--;
+			}
+			
+			// Add element and increase our counter
+			varer[i] = new Vare(varenr);
+			antallVarer++;
 		}
 	}
 	

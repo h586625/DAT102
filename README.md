@@ -1,1 +1,1 @@
-﻿# DAT100
+﻿﻿# DAT102 - Algoritmer og datastrukturer

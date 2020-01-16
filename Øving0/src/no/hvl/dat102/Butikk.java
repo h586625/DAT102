@@ -93,6 +93,21 @@ public class Butikk {
 		}
 	}
 	
+	// m)
+	public void grossInnkjop(int varenr, int ant) {
+		int indeks = finnVare(varenr);
+		if(indeks != -1) {
+			int antall = varer[indeks].getAntall();
+			if(antall < 0) {
+				System.out.println("Antall varer av denne typen er negativ.");
+			} else {
+				varer[indeks].setAntall(antall+ant);
+			}
+		} else {
+			System.out.println("Varen fins ikke.");
+		}
+	}
+	
 	@Override
 	public String toString() {
 		String varerStr = "";

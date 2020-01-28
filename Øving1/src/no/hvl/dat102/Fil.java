@@ -73,7 +73,7 @@ public class Fil {
 
 				Film film = new Film(nr, produsent, tittel, aar, sj, selskap);
 
-				filmarkiv.leggTil(film);
+				filmarkiv.leggTilFilm(film);
 			}
 
 			// 4 - Lukk filen
@@ -94,7 +94,7 @@ public class Fil {
 	
 		
 	
-	public static void skrivTilFil(FilmarkivADT filma, String filnavn)  {
+	public static void skrivTilFil(FilmarkivADT filmer, String filnavn)  {
 		try {
 			/* 1 - FileWriter
 			 *     Definerer et FileWriter-objekt som åpner filen.
@@ -117,23 +117,23 @@ public class Fil {
 			 * 
 			 */
 			PrintWriter utfil = new PrintWriter(ansFil);
-			int antall = filma.Antall();
+			int antall = filmer.antall();
 			// 3 - Skriver foerst ut antall ansatt-info-er på første linje
 			utfil.println(antall);
-			Film[] tabell = filma.hentFilmTabell();
+			Film[] tabell = filmer.hentFilmTabell();
 			for (int i = 0; i < antall; i++) {
 				// 3 - Skriver postene, felt for felt
-				utfil.print(tabell[i].getNr());
+				utfil.print(tabell[i].getFilmnr());
 				utfil.print(SKILLE);
 				utfil.print(tabell[i].getProdusent());
 				utfil.print(SKILLE);
 				utfil.print(tabell[i].getTittel());
 				utfil.print(SKILLE);
-				utfil.print(tabell[i].getAar());
+				utfil.print(tabell[i].getLanseringsAar());
 				utfil.print(SKILLE);
 				utfil.print(tabell[i].getSjanger());
 				utfil.print(SKILLE);
-				utfil.println(tabell[i].getSelskap());
+				utfil.println(tabell[i].getFilmselskap());
 			} // for
 				// 4 - Lukk filen
 			utfil.close();

@@ -8,9 +8,16 @@ public class Filmarkiv implements FilmarkivADT {
 	private int antallFilmer;
 	
 	public Filmarkiv(int antall) {
-		filmTabell = new Film[antall];
+		this.filmTabell = new Film[antall];
+		this.antallFilmer = 0;
 	}
 	
+	@Override
+	public Film[] hentFilmTabell() {
+		return filmTabell;
+	}
+	
+	@Override
 	public void leggTilFilm(Film film) {
 		if (sokNr(film.getFilmnr()) == -1) {
 			if (antallFilmer == filmTabell.length) {
@@ -36,8 +43,10 @@ public class Filmarkiv implements FilmarkivADT {
 		filmTabell = biggerArray;
 	}
 	
+	@Override
 	public boolean slettFilm(int filmNr) {
 		int sok = sokNr(filmNr);
+		
 		if (sok != -1) {
 			// comments show alternative solution
 			antallFilmer--;
@@ -50,10 +59,6 @@ public class Filmarkiv implements FilmarkivADT {
 		return false;
 	}
 	
-	public Film[] hentFilmTabell() {
-		return filmTabell;
-	}
-	
 	public int sokNr(int filmNr) {
 		for (int i = 0; i < antallFilmer; i++) {
 			Film fi = filmTabell[i];
@@ -64,10 +69,11 @@ public class Filmarkiv implements FilmarkivADT {
 		return -1;
 	}
 	
-	// TODO: nullpointer exception
+	@Override
 	public Film[] sokTittel(String delstreng) {
 		Film[] tittelTabell = new Film[antallFilmer];
 		int teller = 0;
+		
 		for (int i = 0; i < antallFilmer; i++) {
 			Film fi = filmTabell[i];
 			if (fi.getTittel() != null && fi.getTittel().contains(delstreng)) {
@@ -75,14 +81,15 @@ public class Filmarkiv implements FilmarkivADT {
 				teller++;
 			}
 		}
+		
 		return tittelTabell;
 	}
 	
-	// TODO: nullpointer exception
+	@Override
 	public Film[] sokProdusent(String delstreng) {
 		Film[] produsentTabell = new Film[antallFilmer];
 		int teller = 0;
-		
+
 		for (int i = 0; i < antallFilmer; i++) {
 			Film fi = filmTabell[i];
 			if (fi.getProdusent() != null && fi.getProdusent().contains(delstreng)) {
@@ -90,10 +97,14 @@ public class Filmarkiv implements FilmarkivADT {
 				teller++;
 			}
 		}
+
 		return produsentTabell;
 	}
 	
+	@Override
 	public void skrivUtTitler() {
+		System.out.println("=====TITLER=====");
+		
 		for (int i = 0; i < antallFilmer; i++) {
 			System.out.println(filmTabell[i].getTittel());
 		}
@@ -102,14 +113,17 @@ public class Filmarkiv implements FilmarkivADT {
 	@Override
 	public int antallSjanger(Sjanger sjanger) {
 		int antallSjanger = 0;
+		
 		for (int i = 0; i < antallFilmer; i++) {
 			if (filmTabell[i].getSjanger() == sjanger) {
 				antallSjanger++;
 			}
 		}
+		
 		return antallSjanger;
 	}
 	
+	@Override
 	public int antall() {
 		return antallFilmer;
 	}

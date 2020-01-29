@@ -70,5 +70,5 @@ public class Tekstgrensesnitt {
 		for (int i = 0; i < sjangere.length; i++) {
 			System.out.println(sjangere[i] + ": " + filmer.antallSjanger(Sjanger.values()[i]));
 		}
-	}
+	}	
 }

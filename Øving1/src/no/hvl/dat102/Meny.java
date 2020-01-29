@@ -13,7 +13,7 @@ public class Meny {
 	}
 	
 	public void start() {
-		
+		tekstgr.lesFilm();
 	};
 	
 }

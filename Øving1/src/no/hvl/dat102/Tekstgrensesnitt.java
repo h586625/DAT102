@@ -28,6 +28,8 @@ public class Tekstgrensesnitt {
 		Sjanger sjang = Sjanger.finnSjanger(leser.nextLine());
 		System.out.println("Filmselskap");
 		String selskap = leser.nextLine();
+		
+		leser.close();
 
 		nyFilm = new Film(filmnr, prod, tittel, aarstall, sjang, selskap);
 

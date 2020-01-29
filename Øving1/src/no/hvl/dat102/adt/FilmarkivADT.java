@@ -9,6 +9,8 @@ public interface FilmarkivADT {
 	void leggTilFilm(Film film);
 
 	boolean slettFilm(int filmnr);
+	
+	int sokNr(int filmnr);
 
 	Film[] sokTittel(String delstreng);
 

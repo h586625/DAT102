@@ -94,6 +94,10 @@ public class Fil {
 	
 		
 	
+	/**
+	 * If the file does not exist, a new file will be created
+	 * @throws IOException if file can't be opened
+	 */
 	public static void skrivTilFil(FilmarkivADT filmer, String filnavn)  {
 		try {
 			/* 1 - FileWriter
@@ -118,7 +122,7 @@ public class Fil {
 			 */
 			PrintWriter utfil = new PrintWriter(ansFil);
 			int antall = filmer.antall();
-			// 3 - Skriver foerst ut antall ansatt-info-er på første linje
+			// 3 - Skriver foerst ut antall filmer på første linje
 			utfil.println(antall);
 			Film[] tabell = filmer.hentFilmTabell();
 			for (int i = 0; i < antall; i++) {

@@ -66,7 +66,8 @@ public class Tekstgrensesnitt {
 	}
 	
 	public void skrivUtStatistikk(FilmarkivADT filmer) {
-		System.out.println("Antall filmer: " + filmer.antall());
+		System.out.println("\n=====STATISTIKK===== \nAntall filmer: " + filmer.antall());
+		
 		System.out.println("Antall sjangere: ");
 		Sjanger[] sjangere = Sjanger.values();
 		for (int i = 0; i < sjangere.length; i++) {

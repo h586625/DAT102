@@ -24,6 +24,11 @@ public class Filmarkiv implements FilmarkivADT {
 				utvidFilmarkiv();
 			}
 			filmTabell[antallFilmer] = film;
+			System.out.println(
+				"Filmen " + "\"" 
+				+ filmTabell[antallFilmer].getTittel() 
+				+ "\"" + " er nå lagt til."
+			);
 			antallFilmer++;
 		} else {
 			System.out.println("Denne filmen eksisterer allerede.");
@@ -50,15 +55,22 @@ public class Filmarkiv implements FilmarkivADT {
 		if (sok != -1) {
 			// comments show alternative solution
 			antallFilmer--;
+			System.out.println(
+				"Filmen " + "\"" 
+				+ filmTabell[sok].getTittel() + "\"" 
+				+ " er nå slettet."
+			);
 			filmTabell[sok] = filmTabell[antallFilmer]; // -1
 			filmTabell[antallFilmer] = null; // -1
 			// antallFilmer--;
 			return true;
 		}
 		
+		System.out.println("Ingen film ble slettet.");
 		return false;
 	}
 	
+	@Override
 	public int sokNr(int filmNr) {
 		for (int i = 0; i < antallFilmer; i++) {
 			Film fi = filmTabell[i];
@@ -112,15 +124,17 @@ public class Filmarkiv implements FilmarkivADT {
 	
 	@Override
 	public int antallSjanger(Sjanger sjanger) {
-		int antallSjanger = 0;
+		int antallSjangere = 0;
 		
 		for (int i = 0; i < antallFilmer; i++) {
-			if (filmTabell[i].getSjanger() == sjanger) {
-				antallSjanger++;
+			Sjanger sj = filmTabell[i].getSjanger();
+			
+			if (sj != null && sj == sjanger) {
+				antallSjangere++;
 			}
 		}
 		
-		return antallSjanger;
+		return antallSjangere;
 	}
 	
 	@Override

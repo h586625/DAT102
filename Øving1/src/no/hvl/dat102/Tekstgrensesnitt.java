@@ -10,7 +10,7 @@ public class Tekstgrensesnitt {
 	 * Create a Scanner object in lesFilm and keep it open Close it in the end
 	 * inside Menu when all reading is done
 	 */
-	public static Film lesFilm() {
+	public Film lesFilm() {
 
 		Film nyFilm;
 

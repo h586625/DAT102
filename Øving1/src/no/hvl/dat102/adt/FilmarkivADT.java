@@ -10,8 +10,6 @@ public interface FilmarkivADT {
 
 	boolean slettFilm(int filmnr);
 	
-	int sokNr(int filmnr);
-
 	Film[] sokTittel(String delstreng);
 
 	Film[] sokProdusent(String delstreng);

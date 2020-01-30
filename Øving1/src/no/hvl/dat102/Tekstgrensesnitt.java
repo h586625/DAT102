@@ -51,6 +51,7 @@ public class Tekstgrensesnitt {
 		Film[] filmTabell = filmer.sokTittel(delstreng);
 		for (int i = 0; i < filmTabell.length; i++) {
 			if (filmTabell[i] != null) {
+				visFilm(filmTabell[i]);
 				System.out.println(filmTabell[i].getTittel());
 			}
 		}
@@ -60,6 +61,7 @@ public class Tekstgrensesnitt {
 		Film[] produsentTabell = filmer.sokProdusent(delstreng);
 		for (int i = 0; i < produsentTabell.length; i++) {
 			if (produsentTabell[i] != null) {
+				visFilm(produsentTabell[i]);
 				System.out.println(produsentTabell[i].getTittel());
 			}
 		}

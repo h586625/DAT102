@@ -11,12 +11,7 @@ public class KlientFilmarkiv {
 	 * work on an existing archive OR create a new archive
 	 */
 	public static void main(String[] args) {
-		FilmarkivADT filmer = Fil.lesFraFil("filmfil.txt");
-		if (filmer == null) {
-			// Initialize an empty movie archive with 10 free slots
-			// if the default file is empty or non-existent.
-			filmer = new Filmarkiv(10);
-		}
+		FilmarkivADT filmer = new Filmarkiv(1);
 	
 		Meny meny = new Meny(filmer);
 		meny.start();

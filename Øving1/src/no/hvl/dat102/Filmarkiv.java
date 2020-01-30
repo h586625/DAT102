@@ -4,8 +4,13 @@ import no.hvl.dat102.Film;
 import no.hvl.dat102.adt.FilmarkivADT;
 
 public class Filmarkiv implements FilmarkivADT {
+	private final static int STDK = 1;
 	private Film[] filmTabell;
 	private int antallFilmer;
+	
+	public Filmarkiv() {
+		this(STDK);
+	}
 	
 	public Filmarkiv(int antall) {
 		this.filmTabell = new Film[antall];
@@ -70,7 +75,6 @@ public class Filmarkiv implements FilmarkivADT {
 		return false;
 	}
 	
-	@Override
 	public int sokNr(int filmNr) {
 		for (int i = 0; i < antallFilmer; i++) {
 			Film fi = filmTabell[i];

@@ -11,17 +11,17 @@ public class Filmarkiv implements FilmarkivADT {
 	public Filmarkiv() {
 		this(STDK);
 	}
-	
+
 	public Filmarkiv(int antall) {
 		this.filmTabell = new Film[antall];
 		this.antallFilmer = 0;
 	}
-	
+
 	@Override
 	public Film[] hentFilmTabell() {
 		return filmTabell;
 	}
-	
+
 	@Override
 	public void leggTilFilm(Film film) {
 		if (sokNr(film.getFilmnr()) == -1) {
@@ -39,24 +39,44 @@ public class Filmarkiv implements FilmarkivADT {
 			System.out.println("Denne filmen eksisterer allerede.");
 		}
 	}
-	
+
 	/**
 	 * Add 10% more empty slots to our array
 	 */
 	public void utvidFilmarkiv() {
 		Film[] biggerArray = new Film[(int)Math.ceil(1.1 * filmTabell.length)];
-		
+
 		for (int i = 0; i < filmTabell.length; i++) {
 			biggerArray[i] = filmTabell[i];
 		}
-		
+
 		filmTabell = biggerArray;
 	}
-	
+
+	/**
+	 * HVA ER POENGET MED DENNE?? VI BRUKER JO ALLTID ANTALL UANSETT
+	 * Returns a movie array without null values
+	 * This prevents some NullPointerException bugs
+	 * 
+	 * n is the amount of elements
+	 * @param tab
+	 * @param n
+	 * @return Film[]
+	 */
+//	private Film[] trimTab(Film[] tab, int n) {
+//		Film[] filmtab2 = new Film[n];
+//		int i = 0;
+//		while (i < n) {
+//			filmtab2[i] = tab[i];
+//			i++;
+//		}
+//		return filmtab2;
+//	}
+
 	@Override
 	public boolean slettFilm(int filmNr) {
 		int sok = sokNr(filmNr);
-		
+
 		if (sok != -1) {
 			// comments show alternative solution
 			antallFilmer--;
@@ -67,6 +87,7 @@ public class Filmarkiv implements FilmarkivADT {
 			);
 			filmTabell[sok] = filmTabell[antallFilmer]; // -1
 			filmTabell[antallFilmer] = null; // -1
+			
 			// antallFilmer--;
 			return true;
 		}

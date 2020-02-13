@@ -15,7 +15,16 @@ public class KjedetFilmarkiv implements FilmarkivADT {
 	
 	@Override
 	public Film[] hentFilmTabell() {
-		
+		Film[] filmTab = new Film[antall];
+		LinearNode<Film> current = start;
+
+		int pos = 0;
+		while (current != null) {
+			filmTab[pos] = current.getElement();
+			pos++;
+			current = current.getNeste();
+		}
+		return filmTab;
 	}
 	
 	@Override
@@ -43,10 +52,12 @@ public class KjedetFilmarkiv implements FilmarkivADT {
 		// 2. Elementet er det første. Oppdater start
 		// 3. Elementet er midt inni eller bak? Slett
 		if (start != null) {
+			// 2.
 			if (start.getNeste() == null) {
 				start = null;
 			} else {
 				while (current != null) {
+					// 3.
 					if (current.getElement().getFilmnr() == filmNr) {
 						prev.setNeste(current.getNeste());
 						prev = current;
@@ -59,19 +70,61 @@ public class KjedetFilmarkiv implements FilmarkivADT {
 		return slettet;
 	}
 	
-	public int sokNr(int filmNr) {
-		
-		return -1;
-	}
-	
 	@Override
 	public Film[] sokTittel(String delstreng) {
-		
+
+		LinearNode<Film> current = start;
+
+		// Part one: find amount in order to create array in correct length
+		int ant = 0;
+		while (current != null) {
+			if (current.getElement().getTittel().contains(delstreng)) {
+				ant++;
+			}
+			current = current.getNeste();
+		}
+
+		current = start;
+		// Part two: create array and copy objects
+		Film[] tittelTab = new Film[ant];
+		int pos = 0;
+		while (current != null) {
+			if (current.getElement().getTittel().contains(delstreng)) {
+				tittelTab[pos] = current.getElement();
+				pos++;
+			}
+			current = current.getNeste();
+		}
+
+		return tittelTab;
 	}
-	
+
 	@Override
 	public Film[] sokProdusent(String delstreng) {
 		
+		LinearNode<Film> current = start;
+		
+		//Part one: find amount in order to create array in correct length
+		int ant = 0;
+		while (current != null) {
+			if (current.getElement().getProdusent().contains(delstreng)) {
+				ant++;
+			}
+			current = current.getNeste();
+		}
+		
+		//Part two: create array and copy objects
+		Film[] prodTab = new Film[ant];
+		int pos = 0;
+		while (current != null) {
+			if (current.getElement().getProdusent().contains(delstreng)) {
+				prodTab[pos] = current.getElement();
+				pos++;
+			}
+			current = current.getNeste();
+		}
+
+		return prodTab;
 	}
 	
 	@Override
@@ -82,10 +135,35 @@ public class KjedetFilmarkiv implements FilmarkivADT {
 	@Override
 	public int antallSjanger(Sjanger sjanger) {
 		
+		int antallSjanger = 0;
+		LinearNode<Film> current = start;
+		
+		while (current != null) {
+			if (current.getElement().getSjanger() == sjanger) {
+				antallSjanger++;
+			}
+			current = current.getNeste();
+		}
+
+		return antallSjanger;
 	}
 	
 	@Override
 	public int antall() {
+		return antall;
+	}
+	
+	public static void main(String[] args) {
+		KjedetFilmarkiv arkiv = new KjedetFilmarkiv();
+		arkiv.leggTilFilm(
+				new Film(1, "Quentin Tarantino", "Once Upon a Time In Hollywood", 2019, Sjanger.DRAMA, "New Line Cinema"));
+		arkiv.leggTilFilm(
+				new Film(2, "Quentin Tarantino", "Django Unchained", 2012, Sjanger.ACTION, "New Line Cinema"));
+		arkiv.leggTilFilm(
+				new Film(3, "Tony Kaye", "American History X", 1998, Sjanger.DRAMA, "New Line Cinema"));
+		
+		Tekstgrensesnitt.skrivUtFilmDelstrengITittel(arkiv, "In");
+		
 		
 	}
 }

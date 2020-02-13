@@ -1,6 +1,0 @@
-5
-3#Quentin Tarantino#Django Unchained#2012#ACTION#The Weinstein Company
-1#Tony Kaye#American History X#1998#DRAMA#New Line Cinema
-2#Kaye#History#1998#null#New Line Cinema
-4#Steven Spielberg#The Terminal#2004#DRAMA#DreamWorks SKG
-12#test#test#1991#ACTION#test

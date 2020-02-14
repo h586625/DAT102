@@ -89,10 +89,13 @@ public class Filmarkiv implements FilmarkivADT {
 	public Film[] sokTittel(String delstreng) {
 		Film[] tittelTabell = new Film[antallFilmer];
 		int teller = 0;
+		delstreng = delstreng.toLowerCase();
 		
 		for (int i = 0; i < antallFilmer; i++) {
 			Film fi = filmTabell[i];
-			if (fi.getTittel() != null && fi.getTittel().contains(delstreng)) {
+			if (fi.getTittel() != null && 
+					fi.getTittel().toLowerCase().contains(delstreng)
+			) {
 				tittelTabell[teller] = fi;
 				teller++;
 			}

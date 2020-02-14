@@ -36,7 +36,7 @@ public class Tekstgrensesnitt {
 		return nyFilm;
 	}
 	
-	public static void visFilm(Film film) {
+	public void visFilm(Film film) {
 		String filmInformasjon = "Filmen heter: " + film.getTittel() 
 				+ "\nProdusenten heter: " + film.getProdusent()
 				+ "\nFilm nummeret er: " + film.getFilmnr() 
@@ -47,22 +47,26 @@ public class Tekstgrensesnitt {
 		System.out.println(filmInformasjon);
 	}
 	
-	public static void skrivUtFilmDelstrengITittel(FilmarkivADT filmer, String delstreng) {
+	public void skrivUtFilmDelstrengITittel(FilmarkivADT filmer, String delstreng) {
+		delstreng = delstreng.toLowerCase();
 		Film[] filmTabell = filmer.sokTittel(delstreng);
+		System.out.println("FANT FØLGENDE FILMER:\n");
 		for (int i = 0; i < filmTabell.length; i++) {
 			if (filmTabell[i] != null) {
 				visFilm(filmTabell[i]);
-				System.out.println(filmTabell[i].getTittel());
+				System.out.println("==============");
 			}
 		}
 	}
 	
 	public void skrivUtFilmProdusent(FilmarkivADT filmer, String delstreng) {
+		delstreng = delstreng.toLowerCase();
 		Film[] produsentTabell = filmer.sokProdusent(delstreng);
+		System.out.println("FANT FØLGENDE FILMER:\n");
 		for (int i = 0; i < produsentTabell.length; i++) {
 			if (produsentTabell[i] != null) {
 				visFilm(produsentTabell[i]);
-				System.out.println(produsentTabell[i].getTittel());
+				System.out.println("==============");
 			}
 		}
 	}

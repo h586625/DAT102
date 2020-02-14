@@ -5,11 +5,10 @@ import no.hvl.dat102.adt.FilmarkivADT;
 
 public class KjedetFilmarkiv implements FilmarkivADT {
 	private int antall;
-	private LinearNode<Film> start;
+	private LinearNode<Film> start = null;
 	// OBS! Ingen referanse til siste, kun start
 	
 	public KjedetFilmarkiv() {
-		this.start = new LinearNode<Film>();
 		this.antall = 0;
 	}
 	
@@ -50,22 +49,27 @@ public class KjedetFilmarkiv implements FilmarkivADT {
 		LinearNode<Film> current = start;
 		// 1. Tom liste? Ikke foreta noe
 		// 2. Elementet er det første. Oppdater start
-		// 3. Elementet er midt inni eller bak? Slett
+		// 3. Elementet er midt inni eller bakerst? Slett
 		if (start != null) {
 			// 2.
-			if (start.getNeste() == null) {
-				start = null;
+			if (start.getElement().getFilmnr() == filmNr) {
+				start = start.getNeste();
+				antall--;
+				slettet = true;
 			} else {
-				while (current != null) {
+				// We only delete one movie at a time, even though
+				// there may be movies with duplicate movie numbers.
+				while (current != null && !slettet) {
 					// 3.
 					if (current.getElement().getFilmnr() == filmNr) {
 						prev.setNeste(current.getNeste());
-						prev = current;
+						antall--;
+						slettet = true;
 					}
+					prev = current;
+					current = current.getNeste();
 				}
 			}
-			antall--;
-			slettet = true;
 		}
 		return slettet;
 	}
@@ -74,11 +78,13 @@ public class KjedetFilmarkiv implements FilmarkivADT {
 	public Film[] sokTittel(String delstreng) {
 
 		LinearNode<Film> current = start;
+		delstreng.toLowerCase();
 
 		// Part one: find amount in order to create array in correct length
 		int ant = 0;
+		
 		while (current != null) {
-			if (current.getElement().getTittel().contains(delstreng)) {
+			if (current.getElement().getTittel().toLowerCase().contains(delstreng)) {
 				ant++;
 			}
 			current = current.getNeste();
@@ -89,7 +95,7 @@ public class KjedetFilmarkiv implements FilmarkivADT {
 		Film[] tittelTab = new Film[ant];
 		int pos = 0;
 		while (current != null) {
-			if (current.getElement().getTittel().contains(delstreng)) {
+			if (current.getElement().getTittel().toLowerCase().contains(delstreng)) {
 				tittelTab[pos] = current.getElement();
 				pos++;
 			}
@@ -103,11 +109,13 @@ public class KjedetFilmarkiv implements FilmarkivADT {
 	public Film[] sokProdusent(String delstreng) {
 		
 		LinearNode<Film> current = start;
+		delstreng.toLowerCase();
 		
 		//Part one: find amount in order to create array in correct length
 		int ant = 0;
+		
 		while (current != null) {
-			if (current.getElement().getProdusent().contains(delstreng)) {
+			if (current.getElement().getProdusent().toLowerCase().contains(delstreng)) {
 				ant++;
 			}
 			current = current.getNeste();
@@ -117,7 +125,7 @@ public class KjedetFilmarkiv implements FilmarkivADT {
 		Film[] prodTab = new Film[ant];
 		int pos = 0;
 		while (current != null) {
-			if (current.getElement().getProdusent().contains(delstreng)) {
+			if (current.getElement().getProdusent().toLowerCase().contains(delstreng)) {
 				prodTab[pos] = current.getElement();
 				pos++;
 			}
@@ -129,7 +137,11 @@ public class KjedetFilmarkiv implements FilmarkivADT {
 	
 	@Override
 	public void skrivUtTitler() {
+		System.out.println("=====TITLER=====");
 		
+		for (int i = 0; i < hentFilmTabell().length; i++) {
+			System.out.println(hentFilmTabell()[i].getTittel());
+		}
 	}
 	
 	@Override
@@ -151,19 +163,5 @@ public class KjedetFilmarkiv implements FilmarkivADT {
 	@Override
 	public int antall() {
 		return antall;
-	}
-	
-	public static void main(String[] args) {
-		KjedetFilmarkiv arkiv = new KjedetFilmarkiv();
-		arkiv.leggTilFilm(
-				new Film(1, "Quentin Tarantino", "Once Upon a Time In Hollywood", 2019, Sjanger.DRAMA, "New Line Cinema"));
-		arkiv.leggTilFilm(
-				new Film(2, "Quentin Tarantino", "Django Unchained", 2012, Sjanger.ACTION, "New Line Cinema"));
-		arkiv.leggTilFilm(
-				new Film(3, "Tony Kaye", "American History X", 1998, Sjanger.DRAMA, "New Line Cinema"));
-		
-		Tekstgrensesnitt.skrivUtFilmDelstrengITittel(arkiv, "In");
-		
-		
 	}
 }

@@ -51,7 +51,8 @@ public class Meny {
 					if (valg3 == 1) {
 						Film film = tekstgr.lesFilm();
 						filmer.leggTilFilm(film);
-						Fil.skrivTilFil(filmer, filnavn);					
+						System.out.println("Filmen er nå lagt til.");
+						Fil.skrivTilFil(filmer, filnavn);
 					} // valg3 == 1
 					
 					if (valg3 == 2) {

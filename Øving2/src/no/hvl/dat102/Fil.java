@@ -57,7 +57,7 @@ public class Fil {
 			       
 			String linje = innfil.readLine();
 			int n = Integer.parseInt(linje);
-			filmarkiv = new KjedetFilmarkiv(n);
+			filmarkiv = new KjedetFilmarkiv();
 
 			// 4 - Les postene, en hel post om gangen
 			for (int i = 0; i < n; i++) {

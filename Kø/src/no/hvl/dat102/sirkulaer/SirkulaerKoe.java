@@ -34,6 +34,7 @@ public class SirkulaerKoe<T> implements KoeADT<T> {
 	public void utvid() {
 		T[] hjelpeTab = (T[])(new Object[koe.length*2]);
 		
+		// doesn't make sense:
 		for (int pos = 0; pos < antall; pos++) {
 
 			front = (front+1) % koe.length;

@@ -7,7 +7,6 @@ import java.util.*;
 
 import no.hvl.dat102.exception.EmptyCollectionException;
 import no.hvl.dat102.mengde.adt.*;
-import no.hvl.dat102.mengde.tabell.TabellMengde;
 
 public class KjedetMengde<T> implements MengdeADT<T> {
 	private static Random rand = new Random();

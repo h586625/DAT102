@@ -5,8 +5,6 @@ import java.util.Random;
 
 import no.hvl.dat102.exception.EmptyCollectionException;
 import no.hvl.dat102.mengde.adt.*;
-import no.hvl.dat102.mengde.kjedet.KjedetMengde;
-import no.hvl.dat102.mengde.klient.Bingokule;
 
 public class TabellMengde<T> implements MengdeADT<T> {
 	// ADT-en Mengde implementert som tabell
@@ -225,5 +223,7 @@ public class TabellMengde<T> implements MengdeADT<T> {
 	public Iterator<T> oppramser() {
 		return new TabellIterator<T>(tab, antall);
 	}
+
+	
 
 }// class

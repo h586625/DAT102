@@ -203,7 +203,7 @@ public class TabellMengde<T> implements MengdeADT<T> {
 	public boolean undermengde(MengdeADT<T> m2) {
 		boolean erUnderMengde = true;
 
-		if (m2.antall() >= this.antall()) {
+		if (m2.antall() > this.antall()) {
 			return false;
 		}
 		

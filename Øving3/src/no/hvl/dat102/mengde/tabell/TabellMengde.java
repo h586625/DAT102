@@ -187,11 +187,11 @@ public class TabellMengde<T> implements MengdeADT<T> {
 		MengdeADT<T> differensM = new TabellMengde<T>();
 		T element;
 
-		Iterator<T> teller = m2.oppramser();
+		Iterator<T> teller = this.oppramser();
 
 		while (teller.hasNext()) {
 			element = teller.next();
-			if (inneholder(element)) {
+			if (!m2.inneholder(element)) {
 				((TabellMengde<T>) differensM).leggTilUbetinget(element);
 			}
 		}

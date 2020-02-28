@@ -201,11 +201,11 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 		MengdeADT<T> differensM = new KjedetMengde<T>();
 		T element;
 
-		Iterator<T> teller = m2.oppramser();
+		Iterator<T> teller = this.oppramser();
 		
 		while (teller.hasNext()) {
 			element = teller.next();
-			if (!inneholder(element)) {
+			if (!m2.inneholder(element)) {
 				((KjedetMengde<T>) differensM).leggTilUbetinget(element);
 			}
 		}

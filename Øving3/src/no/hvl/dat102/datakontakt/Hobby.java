@@ -8,7 +8,11 @@ public class Hobby {
 	}
 	
 	public String getHobbyNavn() {
-		return this.hobbyNavn;
+		return hobbyNavn;
+	}
+	
+	public void setHobbyNavn(String navn) {
+		hobbyNavn = navn;
 	}
 
 	// returnerer hobbynavnet med "<" foran og ">" bak om en String 

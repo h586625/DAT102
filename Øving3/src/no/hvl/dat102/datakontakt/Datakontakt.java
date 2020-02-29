@@ -53,16 +53,17 @@ public class Datakontakt {
 
 		if (m1indeks != -1) {
 			Medlem m1 = medlemstabell.getTab()[m1indeks];
-
-			while (teller.hasNext() && funnet == -1) {
-				Medlem m2 = teller.next();
-
-				if (m1.passerTil(m2)) {
-					funnet = pos;
-					m1.setStatusIndeks(pos);
-					m2.setStatusIndeks(m1indeks);
-				} else {
-					pos++;
+			if (m1.getStatusIndeks() != -1) {
+				while (teller.hasNext() && funnet == -1) {
+					Medlem m2 = teller.next();
+	
+					if (m1.passerTil(m2) && m2.getStatusIndeks() != -1) {
+						funnet = pos;
+						m1.setStatusIndeks(pos);
+						m2.setStatusIndeks(m1indeks);
+					} else {
+						pos++;
+					}
 				}
 			}
 		}

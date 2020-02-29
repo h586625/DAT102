@@ -15,12 +15,8 @@ public class Hobby {
 		hobbyNavn = navn;
 	}
 
-	// returnerer hobbynavnet med "<" foran og ">" bak om en String 
-	// eksempel: <tegne, male>
 	public String toString(){
-		String hobbyStr = "";
-		
-		return hobbyStr;
+		return hobbyNavn;
 	}
 
 	public boolean equals(Object hobby2){ //

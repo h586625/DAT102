@@ -41,6 +41,11 @@ public class Datakontakt {
 		return funnet;
 	}
 
+	public static Medlem hentMedlem(String medlemsnavn) {
+		int m1indeks = finnMedlemsIndeks(medlemsnavn);
+		return (m1indeks == -1) ? null : medlemstabell.getTab()[m1indeks];
+	}
+
 	public static int finnPartnerFor(String medlemsnavn) {
 		int funnet = -1;
 		int m1indeks = finnMedlemsIndeks(medlemsnavn);
@@ -67,6 +72,9 @@ public class Datakontakt {
 	}
 
 	public static void tilbakestillStatusIndeks(String medlemsnavn) {
-		
+		Medlem medlem = hentMedlem(medlemsnavn);
+		if (medlem != null) {
+			medlem.setStatusIndeks(-1);
+		}
 	}
 }

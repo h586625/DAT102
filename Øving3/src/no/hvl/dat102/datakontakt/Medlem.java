@@ -1,7 +1,5 @@
 package no.hvl.dat102.datakontakt;
 
-import java.util.Iterator;
-
 import no.hvl.dat102.mengde.adt.MengdeADT;
 import no.hvl.dat102.mengde.tabell.TabellMengde;
 
@@ -33,11 +31,15 @@ public class Medlem {
 	}
 	
 	public MengdeADT<Hobby> getHobbyer() {
-		return this.hobbyer;
+		return hobbyer;
 	}
-	
+
+	public int getStatusIndeks() {
+		return statusIndeks;
+	}
+
 	public void setStatusIndeks(int i) {
-		this.statusIndeks = i;
+		statusIndeks = i;
 	}
 
 	public boolean passerTil(Medlem medlem2) {		

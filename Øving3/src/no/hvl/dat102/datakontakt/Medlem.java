@@ -29,9 +29,17 @@ public class Medlem {
 	public String getNavn() {
 		return navn;
 	}
-	
+
+	public void setNavn(String navn) {
+		this.navn = navn;
+	}
+
 	public MengdeADT<Hobby> getHobbyer() {
 		return hobbyer;
+	}
+
+	public void setHobbyer(MengdeADT<Hobby> hobbyer) {
+		this.hobbyer = hobbyer;
 	}
 
 	public int getStatusIndeks() {

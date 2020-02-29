@@ -232,6 +232,7 @@ public class TabellMengde<T> implements MengdeADT<T> {
 		String resultat = "<";
 		for (int i = 0; i < antall; i++) {
 			if (i > 0) resultat += ", ";
+
 			resultat += tab[i].toString();
 		}
 		resultat += ">";

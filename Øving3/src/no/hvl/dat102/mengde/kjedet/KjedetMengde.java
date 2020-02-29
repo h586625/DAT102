@@ -227,12 +227,15 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 	}
 
 	public String toString(){
-		String resultat = "";
+		String resultat = "<";
 		LinearNode<T> aktuell = start;
 		while(aktuell != null){
-			resultat += aktuell.getElement().toString() + "\t";
+			if (aktuell == start) resultat += ", ";
+
+			resultat += aktuell.getElement().toString();
 			aktuell = aktuell.getNeste();
 		}
+		resultat += ">";
 		return resultat;
 	}
 

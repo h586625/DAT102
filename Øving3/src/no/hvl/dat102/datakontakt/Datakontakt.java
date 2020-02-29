@@ -6,7 +6,6 @@ import no.hvl.dat102.mengde.tabell.TabellMengde;
 
 public class Datakontakt {
 	private TabellMengde<Medlem> medlemstabell;
-	private int antallMedlemmer = medlemstabell.antall();
 
 	public Datakontakt() {
 		medlemstabell = new TabellMengde<Medlem>();
@@ -25,7 +24,7 @@ public class Datakontakt {
 	}
 
 	public int getAntall() {
-		return antallMedlemmer;
+		return medlemstabell.antall();
 	}
 
 	public int finnMedlemsIndeks(String medlemsnavn) {

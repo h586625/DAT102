@@ -5,7 +5,7 @@ import java.util.Iterator;
 import no.hvl.dat102.mengde.tabell.TabellMengde;
 
 public class Datakontakt {
-	private static TabellMengde<Medlem> medlemstabell;
+	private TabellMengde<Medlem> medlemstabell;
 	private int antallMedlemmer = medlemstabell.antall();
 
 	public Datakontakt() {
@@ -16,15 +16,19 @@ public class Datakontakt {
 		medlemstabell = new TabellMengde<Medlem>(start);
 	}
 
-	public static void leggTilMedlem(Medlem person) {
+	public void leggTilMedlem(Medlem person) {
 		medlemstabell.leggTil(person);
 	}
 
-	public int getAntall() {
-		return this.antallMedlemmer;
+	public TabellMengde<Medlem> getMedlemstabell() {
+		return medlemstabell;
 	}
 
-	public static int finnMedlemsIndeks(String medlemsnavn) {
+	public int getAntall() {
+		return antallMedlemmer;
+	}
+
+	public int finnMedlemsIndeks(String medlemsnavn) {
 		int funnet = -1;
 		Iterator<Medlem> teller = medlemstabell.oppramser();
 		int pos = 0;
@@ -40,12 +44,12 @@ public class Datakontakt {
 		return funnet;
 	}
 
-	public static Medlem hentMedlem(String medlemsnavn) {
+	public Medlem hentMedlem(String medlemsnavn) {
 		int m1indeks = finnMedlemsIndeks(medlemsnavn);
 		return (m1indeks == -1) ? null : medlemstabell.getTab()[m1indeks];
 	}
 
-	public static int finnPartnerFor(String medlemsnavn) {
+	public int finnPartnerFor(String medlemsnavn) {
 		int funnet = -1;
 		int m1indeks = finnMedlemsIndeks(medlemsnavn);
 		Iterator<Medlem> teller = medlemstabell.oppramser();
@@ -71,7 +75,7 @@ public class Datakontakt {
 		return funnet;
 	}
 
-	public static void tilbakestillStatusIndeks(String medlemsnavn) {
+	public void tilbakestillStatusIndeks(String medlemsnavn) {
 		Medlem medlem = hentMedlem(medlemsnavn);
 		if (medlem != null) {
 			medlem.setStatusIndeks(-1);

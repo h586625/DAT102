@@ -19,7 +19,7 @@ public class Datakontakt {
 	public static void leggTilMedlem(Medlem person) {
 		medlemstabell.leggTil(person);
 	}
-	
+
 	public int getAntall() {
 		return this.antallMedlemmer;
 	}

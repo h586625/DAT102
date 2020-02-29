@@ -6,11 +6,11 @@ public class Hobby {
 	public Hobby(String hobby){
 		hobbyNavn = hobby;
 	}
-	
+
 	public String getHobbyNavn() {
 		return hobbyNavn;
 	}
-	
+
 	public void setHobbyNavn(String navn) {
 		hobbyNavn = navn;
 	}

@@ -1,0 +1,50 @@
+package no.hvl.dat102.datakontakt;
+
+import java.util.Iterator;
+
+import no.hvl.dat102.mengde.adt.MengdeADT;
+import no.hvl.dat102.mengde.tabell.TabellMengde;
+
+public class Medlem {
+	private String navn;
+	private MengdeADT<Hobby> hobbyer;
+	private int statusIndeks;
+
+	public Medlem() {
+		this.navn = "";
+		this.hobbyer = new TabellMengde<Hobby>();
+		this.statusIndeks = -1;
+	}
+
+	public Medlem(String navn) {
+		this.navn = navn;
+		this.hobbyer = new TabellMengde<Hobby>();
+		this.statusIndeks = -1;
+	}
+
+	public Medlem(String navn, MengdeADT<Hobby> hobbyer, int statusIndeks) {
+		this.navn = navn;
+		this.hobbyer = hobbyer;
+		this.statusIndeks = statusIndeks;
+	}
+
+	public String getNavn() {
+		return navn;
+	}
+	
+	public MengdeADT<Hobby> getHobbyer() {
+		return this.hobbyer;
+	}
+	
+	public void setStatusIndeks(int i) {
+		this.statusIndeks = i;
+	}
+
+	public boolean passerTil(Medlem medlem2) {		
+		if (this.getHobbyer().equals(medlem2.getHobbyer())) {
+			return true;
+		}
+
+		return false;
+	}
+}

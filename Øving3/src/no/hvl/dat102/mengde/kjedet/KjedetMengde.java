@@ -123,6 +123,7 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 		boolean likeMengder = true;
 		T element = null;
 
+		@SuppressWarnings("unchecked")
 		MengdeADT<T> mengde2 = (KjedetMengde<T>)m2;
 
 		if (this.antall() == mengde2.antall()) {

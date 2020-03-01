@@ -1,7 +1,7 @@
 package no.hvl.dat102.mengde.klient;
 
 import no.hvl.dat102.mengde.adt.MengdeADT;
-import no.hvl.dat102.mengde.tabell.TabellMengde;
+//import no.hvl.dat102.mengde.tabell.TabellMengde;
 import no.hvl.dat102.mengde.kjedet.KjedetMengde;
 
 public class KlientBingo {

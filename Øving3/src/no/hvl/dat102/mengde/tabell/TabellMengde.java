@@ -22,10 +22,6 @@ public class TabellMengde<T> implements MengdeADT<T> {
 		antall = 0;
 		tab = (T[]) (new Object[start]);
 	}
-	
-	public T[] getTab() {
-		return this.tab;
-	}
 
 	@Override
 	public int antall() {

@@ -44,8 +44,17 @@ public class Datakontakt {
 	}
 
 	public Medlem hentMedlem(String medlemsnavn) {
-		int m1indeks = finnMedlemsIndeks(medlemsnavn);
-		return (m1indeks == -1) ? null : medlemstabell.getTab()[m1indeks];
+		Iterator<Medlem> teller = medlemstabell.oppramser();
+		Medlem element;
+
+		while (teller.hasNext()) {
+			element = teller.next();
+			if (element.getNavn().equals(medlemsnavn)) {
+				return element;
+			}
+		}
+
+		return null;
 	}
 
 	public int finnPartnerFor(String medlemsnavn) {
@@ -61,7 +70,7 @@ public class Datakontakt {
 					Medlem m2 = teller.next();
 
 					// if m1 and m2 are compatible and
-					// and m2 is not matched with another and
+					// m2 is not matched with another and
 					// m1 isn't matching him/herself
 					if (m1.passerTil(m2) && 
 						m2.getStatusIndeks() == -1 &&

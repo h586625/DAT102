@@ -55,12 +55,18 @@ public class Datakontakt {
 		int pos = 0;
 
 		if (m1indeks != -1) {
-			Medlem m1 = medlemstabell.getTab()[m1indeks];
+			Medlem m1 = hentMedlem(medlemsnavn);
 			if (m1.getStatusIndeks() != -1) {
 				while (teller.hasNext() && funnet == -1) {
 					Medlem m2 = teller.next();
-	
-					if (m1.passerTil(m2) && m2.getStatusIndeks() != -1) {
+
+					// if m1 and m2 are compatible and
+					// and m2 is not matched with another and
+					// m1 isn't matching him/herself
+					if (m1.passerTil(m2) && 
+						m2.getStatusIndeks() == -1 &&
+						m2.getNavn() != medlemsnavn
+					) {
 						funnet = pos;
 						m1.setStatusIndeks(pos);
 						m2.setStatusIndeks(m1indeks);

@@ -6,6 +6,7 @@ import no.hvl.dat102.mengde.tabell.TabellMengde;
 
 public class Datakontakt {
 	private TabellMengde<Medlem> medlemstabell;
+	private int antallPar = 0;
 
 	public Datakontakt() {
 		medlemstabell = new TabellMengde<Medlem>();
@@ -25,6 +26,10 @@ public class Datakontakt {
 
 	public int getAntall() {
 		return medlemstabell.antall();
+	}
+
+	public int getAntallPar() {
+		return antallPar;
 	}
 
 	public int finnMedlemsIndeks(String medlemsnavn) {
@@ -83,6 +88,7 @@ public class Datakontakt {
 						m2.getNavn() != medlemsnavn
 					) {
 						funnet = pos;
+						antallPar++;
 						m1.setStatusIndeks(pos);
 						m2.setStatusIndeks(m1indeks);
 					} else {
@@ -101,6 +107,7 @@ public class Datakontakt {
 	public void tilbakestillStatusIndeks(String medlemsnavn) {
 		Medlem medlem = hentMedlem(medlemsnavn);
 		if (medlem != null) {
+			antallPar--;
 			medlem.setStatusIndeks(-1);
 		}
 	}

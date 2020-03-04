@@ -24,6 +24,14 @@ public class TabellMengde<T> implements MengdeADT<T> {
 		tab = (T[]) (new Object[start]);
 	}
 
+	public T hentElementFraIndeks(int i) {
+		if (tab[i] != null) {
+			return tab[i];
+		}
+
+		return null;
+	}
+
 	@Override
 	public int antall() {
 		return antall;

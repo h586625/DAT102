@@ -40,9 +40,13 @@ public class Datakontakt {
 		return antallPar;
 	}
 
+	public Iterator<Medlem> oppramser() {
+		return medlemstabell.oppramser();
+	}
+
 	public int finnMedlemsIndeks(String medlemsnavn) {
 		int funnet = -1;
-		Iterator<Medlem> teller = medlemstabell.oppramser();
+		Iterator<Medlem> teller = oppramser();
 		int pos = 0;
 
 		while (teller.hasNext() && funnet == -1) {
@@ -57,7 +61,7 @@ public class Datakontakt {
 	}
 
 	public Medlem hentMedlem(String medlemsnavn) {
-		Iterator<Medlem> teller = medlemstabell.oppramser();
+		Iterator<Medlem> teller = oppramser();
 		Medlem element;
 
 		while (teller.hasNext()) {
@@ -80,7 +84,7 @@ public class Datakontakt {
 
 		// did we find the member?
 		if (m1indeks != -1) {
-			Iterator<Medlem> teller = medlemstabell.oppramser();
+			Iterator<Medlem> teller = oppramser();
 			int pos = 0;
 			Medlem m1 = hentMedlem(medlemsnavn);
 			// is the member available/single?

@@ -53,4 +53,13 @@ public class Medlem {
 
 		return false;
 	}
+
+	public String toString() {
+		String s = "";
+		s += "Navn: " + navn;
+		s += "\nHobbyer: " + hobbyer.toString();
+		s += "\nStatus: ";
+		s += (statusIndeks == -1) ? "Ingen partner" : ("Partner med " + statusIndeks);
+		return s;
+	}
 }

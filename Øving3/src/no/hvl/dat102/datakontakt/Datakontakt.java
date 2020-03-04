@@ -44,7 +44,7 @@ public class Datakontakt {
 		int funnet = -1;
 		Iterator<Medlem> teller = medlemstabell.oppramser();
 		int pos = 0;
-		
+
 		while (teller.hasNext() && funnet == -1) {
 			if (teller.next().getNavn().equals(medlemsnavn)) {
 				funnet = pos;
@@ -52,7 +52,7 @@ public class Datakontakt {
 				pos++;
 			}
 		}
-		
+
 		return funnet;
 	}
 
@@ -91,10 +91,10 @@ public class Datakontakt {
 					// if m1 and m2 are compatible and
 					// m2 is not matched with another and
 					// m1 isn't matching him/herself
-					if (m1.passerTil(m2) && 
-						m2.getStatusIndeks() == -1 &&
-						m2.getNavn() != medlemsnavn
-					) {
+					if (m1.passerTil(m2) &&
+							m2.getStatusIndeks() == -1 &&
+							m2.getNavn() != medlemsnavn
+							) {
 						funnet = pos;
 						antallPar++;
 						m1.setStatusIndeks(pos);
@@ -103,7 +103,7 @@ public class Datakontakt {
 						pos++;
 					}
 				}
-			// return the current partner's index
+				// return the current partner's index
 			} else {
 				funnet = m1.getStatusIndeks();
 			}

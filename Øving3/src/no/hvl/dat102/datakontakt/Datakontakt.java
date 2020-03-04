@@ -57,15 +57,21 @@ public class Datakontakt {
 		return null;
 	}
 
+	public Medlem hentMedlemFraIndeks(int i) {
+		return medlemstabell.hentElementFraIndeks(i);
+	}
+
 	public int finnPartnerFor(String medlemsnavn) {
 		int funnet = -1;
 		int m1indeks = finnMedlemsIndeks(medlemsnavn);
-		Iterator<Medlem> teller = medlemstabell.oppramser();
-		int pos = 0;
 
+		// did we find the member?
 		if (m1indeks != -1) {
+			Iterator<Medlem> teller = medlemstabell.oppramser();
+			int pos = 0;
 			Medlem m1 = hentMedlem(medlemsnavn);
-			if (m1.getStatusIndeks() != -1) {
+			// is the member available/single?
+			if (m1.getStatusIndeks() == -1) {
 				while (teller.hasNext() && funnet == -1) {
 					Medlem m2 = teller.next();
 
@@ -83,6 +89,9 @@ public class Datakontakt {
 						pos++;
 					}
 				}
+			// return the current partner's index
+			} else {
+				funnet = m1.getStatusIndeks();
 			}
 		}
 

@@ -20,6 +20,14 @@ public class Datakontakt {
 		medlemstabell.leggTil(person);
 	}
 
+	public void slettMedlem(Medlem person) {
+		if (medlemstabell.fjern(person) != null) {
+			if (person.getStatusIndeks() != -1) {
+				antallPar--;
+			}
+		}
+	}
+
 	public TabellMengde<Medlem> getMedlemstabell() {
 		return medlemstabell;
 	}

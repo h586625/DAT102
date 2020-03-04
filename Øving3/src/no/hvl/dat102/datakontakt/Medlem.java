@@ -6,24 +6,20 @@ import no.hvl.dat102.mengde.tabell.TabellMengde;
 public class Medlem {
 	private String navn;
 	private MengdeADT<Hobby> hobbyer;
-	private int statusIndeks;
+	private int statusIndeks = -1;
 
 	public Medlem() {
 		this.navn = "";
-		this.hobbyer = new TabellMengde<Hobby>();
-		this.statusIndeks = -1;
-	}
+		this.hobbyer = new TabellMengde<Hobby>();	}
 
 	public Medlem(String navn) {
 		this.navn = navn;
 		this.hobbyer = new TabellMengde<Hobby>();
-		this.statusIndeks = -1;
 	}
 
-	public Medlem(String navn, MengdeADT<Hobby> hobbyer, int statusIndeks) {
+	public Medlem(String navn, MengdeADT<Hobby> hobbyer) {
 		this.navn = navn;
 		this.hobbyer = hobbyer;
-		this.statusIndeks = statusIndeks;
 	}
 
 	public String getNavn() {

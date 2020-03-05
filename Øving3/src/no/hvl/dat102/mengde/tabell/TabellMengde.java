@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import no.hvl.dat102.exception.EmptyCollectionException;
-import no.hvl.dat102.mengde.adt.*;
+import no.hvl.dat102.mengde.adt.MengdeADT;
 
 public class TabellMengde<T> implements MengdeADT<T> {
 	// ADT-en Mengde implementert som tabell
@@ -48,7 +48,7 @@ public class TabellMengde<T> implements MengdeADT<T> {
 			leggTilUbetinget(element);
 		}
 	}
-	
+
 	public void leggTilUbetinget(T element) {
 		if (antall == tab.length) {
 			utvidKapasitet();
@@ -93,15 +93,15 @@ public class TabellMengde<T> implements MengdeADT<T> {
 		T svar = null;
 
 		for (int i = 0; (i < antall) && (!funnet); i++) {
-            if (this.inneholder(element)) {
-            	svar = tab[i];
-            	tab[i] = tab[antall - 1];
-            	tab[antall -1] = null;
-            	antall--;
-            	funnet = true;
-            }
+			if (tab[i].equals(element)) {
+				svar = tab[i];
+				tab[i] = tab[antall - 1];
+				tab[antall -1] = null;
+				antall--;
+				funnet = true;
+			}
 		}
-		
+
 		return svar;
 	}
 
@@ -125,17 +125,17 @@ public class TabellMengde<T> implements MengdeADT<T> {
 		MengdeADT<T> mengde2 = (TabellMengde<T>)m2;
 
 		if (this.antall() == mengde2.antall()) {
-            Iterator<T> teller = mengde2.oppramser();
-            while (teller.hasNext() && likeMengder) {
-            	element = teller.next();
-                if (!(this.inneholder(element))) {
-                    likeMengder = false;
-                }
-            }
-        } else {
-            likeMengder = false;
-        }
-		
+			Iterator<T> teller = mengde2.oppramser();
+			while (teller.hasNext() && likeMengder) {
+				element = teller.next();
+				if (!(this.inneholder(element))) {
+					likeMengder = false;
+				}
+			}
+		} else {
+			likeMengder = false;
+		}
+
 		return likeMengder;
 	}
 
@@ -156,7 +156,7 @@ public class TabellMengde<T> implements MengdeADT<T> {
 
 		for (int i = 0; i < antall; i++) {
 			element = tab[i];
-			// we have to type-cast because our interface 
+			// we have to type-cast because our interface
 			// doesn't define leggTilUbetinget()
 			// and we can therefore not use it as a reference anymore
 			((TabellMengde<T>) begge).leggTilUbetinget(element);
@@ -180,7 +180,7 @@ public class TabellMengde<T> implements MengdeADT<T> {
 		T element = null;
 
 		Iterator<T> teller = m2.oppramser();
-		
+
 		while (teller.hasNext()) {
 			element = teller.next();
 			if (inneholder(element)) {
@@ -235,6 +235,7 @@ public class TabellMengde<T> implements MengdeADT<T> {
 		return new TabellIterator<T>(tab, antall);
 	}
 
+	@Override
 	public String toString(){
 		String resultat = "<";
 		for (int i = 0; i < antall; i++) {

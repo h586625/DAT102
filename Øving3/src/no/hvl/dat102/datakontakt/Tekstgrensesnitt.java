@@ -22,7 +22,7 @@ public class Tekstgrensesnitt {
 			System.out.println("Hobbyen " + hobbyStr + " er nå lagt til.");
 			hobbyStr = leser.nextLine();
 		}
-		
+
 		System.out.println(hobbyStr);
 
 		System.out.println("Medlemmet " + medlemsnavn + " er nå lagt til.");
@@ -32,7 +32,6 @@ public class Tekstgrensesnitt {
 		return medlem;
 	}
 
-	// skriver ut hobbylisten for et medlem
 	public static void skrivHobbyListe(Medlem medlem) {
 		System.out.println("Alle hobbyene:");
 		System.out.print(medlem.getHobbyer().toString());
@@ -40,14 +39,12 @@ public class Tekstgrensesnitt {
 
 	public static void skrivParListe (Datakontakt arkiv){
 		System.out.println("PARNAVN HOBBYER");
-		
+		arkiv.skrivUtMedlemPar();
 
-		System.out.println("Antall par funnet: " + arkiv.getAntall());
+		System.out.println("==========");
+		System.out.println("Antall par funnet: " + arkiv.getAntallPar());
 	}
-	/* skriver ut på skjermen en oversikt over medlemmer som er
-	koblet til hverandre i medlemstabellen til enhver tid.
-	Et slikt par skal kun vises én gang på utskriftlisten.
-	Metoden skriver også ut antall par som er funnet.
+	/* Et slikt par skal kun vises én gang.
 
 	Eksempel på utskrift:
 	PARNAVN HOBBYER
@@ -55,5 +52,5 @@ public class Tekstgrensesnitt {
 	Eva og Adam <epleplukking, paradishopping>
 	…………………….
 	Antall par funnet: 12
-	*/
+	 */
 }

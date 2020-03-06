@@ -6,7 +6,6 @@ import no.hvl.dat102.mengde.tabell.TabellMengde;
 
 public class Datakontakt {
 	private TabellMengde<Medlem> medlemstabell;
-	private int antallPar = 0;
 
 	public Datakontakt() {
 		medlemstabell = new TabellMengde<Medlem>();
@@ -20,16 +19,29 @@ public class Datakontakt {
 		medlemstabell.leggTil(person);
 	}
 
-	public void slettMedlem(Medlem person) {
-		if (medlemstabell.fjern(person) != null) {
-			if (person.getStatusIndeks() != -1) {
-				antallPar--;
-			}
+	public Medlem slettMedlem(Medlem person) {
+		if (person.getStatusIndeks() != -1) {
+			tilbakestillStatusIndeks(hentMedlemFraIndeks(person.getStatusIndeks()).getNavn());
 		}
+		return medlemstabell.fjern(person);
 	}
 
 	public TabellMengde<Medlem> getMedlemstabell() {
 		return medlemstabell;
+	}
+
+	public TabellMengde<Medlem> getMedlemIPar() {
+		Iterator<Medlem> teller = oppramser(medlemstabell);
+		TabellMengde<Medlem> medlemmerMedPar = new TabellMengde<Medlem>();
+		Medlem medlem;
+		while (teller.hasNext()) {
+			medlem = teller.next();
+			if (medlem.getStatusIndeks() != -1) {
+				medlemmerMedPar.leggTil(medlem);
+			}
+		}
+
+		return medlemmerMedPar;
 	}
 
 	public int getAntall() {
@@ -37,16 +49,53 @@ public class Datakontakt {
 	}
 
 	public int getAntallPar() {
-		return antallPar;
+		Iterator<Medlem> teller = oppramser(medlemstabell);
+		Medlem medlem;
+		int antallPar = 0;
+		while (teller.hasNext()) {
+			medlem = teller.next();
+			if (medlem.getStatusIndeks() != -1) {
+				antallPar++;
+			}
+		}
+
+		return antallPar / 2;
 	}
 
-	public Iterator<Medlem> oppramser() {
-		return medlemstabell.oppramser();
+	public int[] skrivUtMedlemPar() {
+		int[] parIndekser = new int[getAntallPar()*2];
+		int pos = 0;
+		int medlemIndeks;
+		Iterator<Medlem> teller = oppramser(medlemstabell);
+		Medlem medlem;
+		while (teller.hasNext()) {
+			medlem = teller.next();
+			medlemIndeks = finnMedlemsIndeks(medlem.getNavn());
+			int statusIndeks = medlem.getStatusIndeks();
+			boolean duplicate = false;
+			for (int i = 0; i < parIndekser.length; i++) {
+				if (statusIndeks == parIndekser[i] || medlemIndeks == parIndekser[i]) {
+					duplicate = true;
+				}
+			}
+			if (statusIndeks != -1 && !duplicate) {
+				parIndekser[pos] = statusIndeks;
+				pos++;
+				System.out.println(medlem.getNavn() + " og " +
+						hentMedlemFraIndeks(medlem.getStatusIndeks()).getNavn()
+						);
+			}
+		}
+		return parIndekser;
+	}
+
+	public Iterator<Medlem> oppramser(TabellMengde<Medlem> tab) {
+		return tab.oppramser();
 	}
 
 	public int finnMedlemsIndeks(String medlemsnavn) {
 		int funnet = -1;
-		Iterator<Medlem> teller = oppramser();
+		Iterator<Medlem> teller = oppramser(medlemstabell);
 		int pos = 0;
 
 		while (teller.hasNext() && funnet == -1) {
@@ -61,7 +110,7 @@ public class Datakontakt {
 	}
 
 	public Medlem hentMedlem(String medlemsnavn) {
-		Iterator<Medlem> teller = oppramser();
+		Iterator<Medlem> teller = oppramser(medlemstabell);
 		Medlem element;
 
 		while (teller.hasNext()) {
@@ -84,7 +133,7 @@ public class Datakontakt {
 
 		// did we find the member?
 		if (m1indeks != -1) {
-			Iterator<Medlem> teller = oppramser();
+			Iterator<Medlem> teller = oppramser(medlemstabell);
 			int pos = 0;
 			Medlem m1 = hentMedlem(medlemsnavn);
 			// is the member available/single?
@@ -100,7 +149,6 @@ public class Datakontakt {
 							m2.getNavn() != medlemsnavn
 							) {
 						funnet = pos;
-						antallPar++;
 						m1.setStatusIndeks(pos);
 						m2.setStatusIndeks(m1indeks);
 					} else {
@@ -119,7 +167,6 @@ public class Datakontakt {
 	public void tilbakestillStatusIndeks(String medlemsnavn) {
 		Medlem medlem = hentMedlem(medlemsnavn);
 		if (medlem != null) {
-			antallPar--;
 			medlem.setStatusIndeks(-1);
 		}
 	}

@@ -82,7 +82,8 @@ public class Datakontakt {
 				parIndekser[pos] = statusIndeks;
 				pos++;
 				System.out.println(medlem.getNavn() + " og " +
-						hentMedlemFraIndeks(medlem.getStatusIndeks()).getNavn()
+						hentMedlemFraIndeks(medlem.getStatusIndeks()).getNavn() +
+						" " + medlem.getHobbyer()
 						);
 			}
 		}

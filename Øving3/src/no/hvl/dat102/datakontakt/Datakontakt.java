@@ -63,7 +63,7 @@ public class Datakontakt {
 	}
 
 	public int[] skrivUtMedlemPar() {
-		int[] parIndekser = new int[getAntallPar()*2];
+		int[] usedIndexes = new int[getAntallPar()*2];
 		int pos = 0;
 		int medlemIndeks;
 		Iterator<Medlem> teller = oppramser(medlemstabell);
@@ -71,15 +71,24 @@ public class Datakontakt {
 		while (teller.hasNext()) {
 			medlem = teller.next();
 			medlemIndeks = finnMedlemsIndeks(medlem.getNavn());
+			System.out.println("MEDLEM: " + medlemIndeks);
 			int statusIndeks = medlem.getStatusIndeks();
 			boolean duplicate = false;
-			for (int i = 0; i < parIndekser.length; i++) {
-				if (statusIndeks == parIndekser[i] || medlemIndeks == parIndekser[i]) {
-					duplicate = true;
+			for (int i = 0; i < usedIndexes.length; i++) {
+				int alleredeLagtTil = usedIndexes[i];
+				// always whitelist index 0 due to Java initializing ints in arrays to 0
+				if (statusIndeks != 0) {
+					// if current member or his/her partner is already added
+					if (alleredeLagtTil == medlemIndeks || alleredeLagtTil == statusIndeks) {
+						System.out.println("statusIndeks: " + statusIndeks);
+						System.out.println("i: " + i + " parI: " + usedIndexes[i]);
+						System.out.println();
+						duplicate = true;
+					}
 				}
 			}
 			if (statusIndeks != -1 && !duplicate) {
-				parIndekser[pos] = statusIndeks;
+				usedIndexes[pos] = statusIndeks;
 				pos++;
 				System.out.println(medlem.getNavn() + " og " +
 						hentMedlemFraIndeks(medlem.getStatusIndeks()).getNavn() +
@@ -87,7 +96,7 @@ public class Datakontakt {
 						);
 			}
 		}
-		return parIndekser;
+		return usedIndexes;
 	}
 
 	public Iterator<Medlem> oppramser(TabellMengde<Medlem> tab) {

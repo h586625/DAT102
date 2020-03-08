@@ -142,8 +142,8 @@ public class Datakontakt {
 			Iterator<Medlem> teller = oppramser(medlemstabell);
 			int pos = 0;
 			Medlem m1 = hentMedlem(medlemsnavn);
-			// is the member available/single?
-			if (m1.getStatusIndeks() == -1) {
+			// is the member available/single and has hobbies?
+			if (m1.getStatusIndeks() == -1 && !m1.getHobbyer().erTom()) {
 				while (teller.hasNext() && funnet == -1) {
 					Medlem m2 = teller.next();
 

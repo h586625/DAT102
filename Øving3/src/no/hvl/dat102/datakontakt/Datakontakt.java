@@ -71,7 +71,6 @@ public class Datakontakt {
 		while (teller.hasNext()) {
 			medlem = teller.next();
 			medlemIndeks = finnMedlemsIndeks(medlem.getNavn());
-			System.out.println("MEDLEM: " + medlemIndeks);
 			int statusIndeks = medlem.getStatusIndeks();
 			boolean duplicate = false;
 			for (int i = 0; i < usedIndexes.length; i++) {
@@ -80,9 +79,6 @@ public class Datakontakt {
 				if (statusIndeks != 0) {
 					// if current member or his/her partner is already added
 					if (alleredeLagtTil == medlemIndeks || alleredeLagtTil == statusIndeks) {
-						System.out.println("statusIndeks: " + statusIndeks);
-						System.out.println("i: " + i + " parI: " + usedIndexes[i]);
-						System.out.println();
 						duplicate = true;
 					}
 				}

@@ -16,7 +16,6 @@ public class KlientDatakontakt {
 		Medlem eva = new Medlem("Eva");
 		Medlem bradP = new Medlem("Brad Pitt");
 		Medlem jenA = new Medlem("Jennifer Anniston?");
-		person.getHobbyer().leggTil(new Hobby("Gjemsel"));
 		chris.getHobbyer().leggTil(new Hobby("Fjelltur"));
 		cortana.getHobbyer().leggTil(new Hobby("Fjelltur"));
 		adam.getHobbyer().leggTil(new Hobby("Epleplukking"));
@@ -34,7 +33,7 @@ public class KlientDatakontakt {
 		System.out.println("Antall medlemmer: " + arkiv1.getAntall());
 		System.out.println("Medlemsindeks for " +
 				cortana.getNavn() + ": " +
-				arkiv1.finnMedlemsIndeks("Nikita")
+				arkiv1.finnMedlemsIndeks("Adam")
 				);
 		System.out.println("Partnerindeks for " +
 				cortana.getNavn() + ": " +
@@ -48,12 +47,10 @@ public class KlientDatakontakt {
 			System.out.println("Ingen partnermatch for " + cortana.getNavn());
 		}
 
-		arkiv1.finnPartnerFor("chris");
-		arkiv1.finnPartnerFor("Ensom Ulv");
+		arkiv1.finnPartnerFor(person.getNavn());
+		arkiv1.finnPartnerFor("Chris");
 		arkiv1.finnPartnerFor("Adam");
-		arkiv1.finnPartnerFor("Eva");
 		arkiv1.finnPartnerFor("Brad Pitt");
-		arkiv1.finnPartnerFor("Jennifer Anniston?");
 
 		System.out.println();
 		Tekstgrensesnitt.skrivParListe(arkiv1);

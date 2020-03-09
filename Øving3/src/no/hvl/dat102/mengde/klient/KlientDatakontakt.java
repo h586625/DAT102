@@ -19,7 +19,9 @@ public class KlientDatakontakt {
 		chris.getHobbyer().leggTil(new Hobby("Fjelltur"));
 		cortana.getHobbyer().leggTil(new Hobby("Fjelltur"));
 		adam.getHobbyer().leggTil(new Hobby("Epleplukking"));
+		adam.getHobbyer().leggTil(new Hobby("Slangetemming"));
 		eva.getHobbyer().leggTil(new Hobby("Epleplukking"));
+		eva.getHobbyer().leggTil(new Hobby("Slangetemming"));
 		bradP.getHobbyer().leggTil(new Hobby("Teater"));
 		jenA.getHobbyer().leggTil(new Hobby("Teater"));
 		arkiv1.leggTilMedlem(person);

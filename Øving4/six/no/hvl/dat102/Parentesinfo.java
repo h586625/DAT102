@@ -23,36 +23,33 @@ package no.hvl.dat102;
 //  }
 //    hvis stabelen er ikke-tom så feilmelding */
 
-public class Parentesinfo{
+public class Parentesinfo {
 
 	private int linjenr;
 	private int posisjon;
 	private char venstreparentes;
 
-	public Parentesinfo(){
+	public Parentesinfo() {
 		linjenr  = -1;
 		posisjon = -1;
 		venstreparentes = ')';
 	}
 
-	public void setLinjenr(int nyttLinjenr){
+	public void setLinjenr(int nyttLinjenr) {
 		linjenr = nyttLinjenr;
 	}
 
-	public void setPosisjon(int nyPosisjon){
+	public void setPosisjon(int nyPosisjon) {
 		posisjon = nyPosisjon;
-
 	}
 
-	public void setVenstreparentes(char nyVenstreparentes){
+	public void setVenstreparentes(char nyVenstreparentes) {
 		venstreparentes = nyVenstreparentes;
 	}
 
-	public int getLinjenr(){ return linjenr;}
+	public int getLinjenr(){ return linjenr; }
 
-	public int getPosisjon(){ return posisjon;}
+	public int getPosisjon(){ return posisjon; }
 
-	public char getVenstreparentes(){ return venstreparentes;}
-
-
-}//class
+	public char getVenstreparentes(){ return venstreparentes; }
+}

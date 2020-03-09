@@ -5,11 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import no.hvl.dat102.stabel.adt.StabelADT;
+import no.hvl.dat102.stabel.tabell.TabellStabel;
+
 public class Balansering {
-	// Her opphever du kommentarsetning når du har fått lagt inn
-	// nødvendig kode
-	// SirkulaerStabel<Parentesinfo>stabel = new
-	// SirkulaerStabel<Parentesinfo>();
+	StabelADT<Parentesinfo>syntaksStabel = new TabellStabel<Parentesinfo>();
 
 	private boolean passer(char åpent, char lukket) {
 		switch (åpent) {
@@ -25,11 +25,38 @@ public class Balansering {
 	}//
 
 	public void foretaBalansering(String innDataStreng, int linjenr) {
-
 		int lengde = innDataStreng.length();
-		// Fyll ut
+		StabelADT<Character>parentesStabel = new TabellStabel<Character>();
 
-	}//
+		for (int i = 0; i < lengde; i++) {
+			char tegn = innDataStreng.charAt(i);
+
+			// Push if it's a starting parenthesis
+			if (tegn == '{' || tegn == '(' || tegn == '[') {
+				parentesStabel.push(tegn);
+			}
+
+			// If the character is an ending parenthesis
+			// then pop from stack and check if the
+			// popped parenthesis is a matching pair
+			if (tegn == '}' || tegn == ')' || tegn == ']') {
+
+				// If we see an ending parenthesis without
+				// a pair then return false
+				if (parentesStabel.erTom()) {
+					System.out.println("Lukkesymbol ] på linje nr x, tegn nr y har feil åpnesymbol");
+				}
+
+				// Pop the top element from stack, if
+				// it is not a pair parenthesis of character
+				// then there is a mismatch. This happens for
+				// expressions like {(})
+				else if (!passer(parentesStabel.pop(), tegn)) {
+					System.out.println("Lukkesymbol ] på linje nr x, tegn nr y har feil åpnesymbol");
+				}
+			}
+		}
+	}// foretaBalansering
 
 	public void lesFraFil(String filnavn) {
 		FileReader tekstFilLeser = null;
@@ -62,6 +89,6 @@ public class Balansering {
 			System.out.println("Feil ved lukking av fil!");
 		}
 
-	}// metode
+	}// lesFraFil
 
 }// class

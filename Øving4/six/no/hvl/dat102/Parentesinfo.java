@@ -1,38 +1,21 @@
 package no.hvl.dat102;
 
-//-----------------------------------------
-//
-//Balansering av uttrykk med parenteser {},(),[]
-//} ] ) kalles lukkete symboler (høyre)
-// { [ ( kalles for åpne symboler (venstre)
-//...{... [...(...)...]...}... lovlig (balansert) utrykk
-//...{...(...[...)...]...}...  ulovlig (ikke balansert) uttrykk
-//algoritme balansering
-//    Lag en tom stabel
-//    så lenge( ikke-slutt på strengen og fortsatt balansert){
-//      hvis symbolet er åpent
-//             stable det på
-//      ellers hvis  symbolet er lukket
-//           hvis stabelen er tom
-//              sett fortsatt = usann, feilmelding
-//           ellers
-//                stable av symbol (åpent symbol)
-//                hvis det åpne symbolet ikke svarer til det sist leste
-//                lukkete symbolet
-//                    sett fortsatt = usann, feilmelding
-//  }
-//    hvis stabelen er ikke-tom så feilmelding */
-
-public class Parentesinfo {
+public class Parentesinfo{
 
 	private int linjenr;
 	private int posisjon;
 	private char venstreparentes;
 
 	public Parentesinfo() {
-		linjenr  = -1;
+		linjenr = -1;
 		posisjon = -1;
 		venstreparentes = ')';
+	}
+
+	public Parentesinfo(int linjenr, int posisjon, char parentes) {
+		this.linjenr = linjenr;
+		this.posisjon = posisjon;
+		this.venstreparentes = parentes;
 	}
 
 	public void setLinjenr(int nyttLinjenr) {
@@ -52,4 +35,15 @@ public class Parentesinfo {
 	public int getPosisjon(){ return posisjon; }
 
 	public char getVenstreparentes(){ return venstreparentes; }
+
+	public String toStringIkkeBalansert() {
+		return String.format("Åpnesymbol %c på linje nr %d, tegn nr %d har feil lukkeparentes", venstreparentes, linjenr, posisjon);
+	}
+
+	public String toStringRest() {
+		return String.format("Åpnesymbol %c på linje nr %d, teikn nr %d mangler tilsvarande lukkeparentes", venstreparentes, linjenr, posisjon);
+	}
+	public String toStringTomStabel() {
+		return String.format("Lukkesymbol %c på linjenr %d, teikn nr %d mangler tilsvarende åpneparentes.", venstreparentes, linjenr, posisjon);
+	}
 }

@@ -10,6 +10,7 @@ import no.hvl.dat102.stabel.tabell.TabellStabel;
 
 public class Balansering {
 	StabelADT<Parentesinfo>syntaksStabel = new TabellStabel<Parentesinfo>();
+	private boolean feil = false;
 
 	private boolean passer(char åpent, char lukket) {
 		switch (åpent) {
@@ -26,33 +27,39 @@ public class Balansering {
 
 	public void foretaBalansering(String innDataStreng, int linjenr) {
 		int lengde = innDataStreng.length();
-		StabelADT<Character>parentesStabel = new TabellStabel<Character>();
 
 		for (int i = 0; i < lengde; i++) {
-			char tegn = innDataStreng.charAt(i);
+			char parentes = innDataStreng.charAt(i);
 
 			// Push if it's a starting parenthesis
-			if (tegn == '{' || tegn == '(' || tegn == '[') {
-				parentesStabel.push(tegn);
+			if (parentes == '{' || parentes == '(' || parentes == '[') {
+				syntaksStabel.push(new Parentesinfo(linjenr, i, parentes));
 			}
 
 			// If the character is an ending parenthesis
 			// then pop from stack and check if the
 			// popped parenthesis is a matching pair
-			if (tegn == '}' || tegn == ')' || tegn == ']') {
+			if (parentes == '}' || parentes == ')' || parentes == ']') {
 
 				// If we see an ending parenthesis without
 				// a pair then return false
-				if (parentesStabel.erTom()) {
-					System.out.println("Lukkesymbol ] på linje nr x, tegn nr y har feil åpnesymbol");
+				if (syntaksStabel.erTom()) {
+					feil = true;
+					System.out.println(
+							new Parentesinfo(linjenr, i, parentes).toStringTomStabel()
+							);
 				}
 
 				// Pop the top element from stack, if
 				// it is not a pair parenthesis of character
 				// then there is a mismatch. This happens for
 				// expressions like {(})
-				else if (!passer(parentesStabel.pop(), tegn)) {
-					System.out.println("Lukkesymbol ] på linje nr x, tegn nr y har feil åpnesymbol");
+				else {
+					Parentesinfo poppet = syntaksStabel.pop();
+					if (!passer(poppet.getVenstreparentes(), parentes)) {
+						feil = true;
+						System.out.println(poppet.toStringIkkeBalansert());
+					}
 				}
 			}
 		}
@@ -73,10 +80,24 @@ public class Balansering {
 		try {
 			linje = tekstLeser.readLine();
 			while (linje != null) {
-				// kalle metode her!
-				// Fyll ut
+				foretaBalansering(linje, linjenr);
+				linje = tekstLeser.readLine();
+				linjenr++;
+			}
 
-			} // while
+			if (!syntaksStabel.erTom()) {
+				System.out.println("Stabelen er ikke tom etter innlesing.");
+				while (!syntaksStabel.erTom()) {
+					feil = true;
+					Parentesinfo rest = syntaksStabel.pop();
+					System.out.println(rest.toStringRest());
+				}
+			}
+			if (feil == true) {
+				System.out.println("Filen er balansert.");
+			} else {
+				System.out.println("Filen er ikke balansert.");
+			}
 		}
 
 		catch (IOException unntak) {

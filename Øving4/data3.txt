@@ -1,0 +1,49 @@
+public void lesFraFil(String filnavn) {
+		
+		FileReader tekstFilLeser = null;
+		try {
+			tekstFilLeser = new FileReader(filnavn);
+		} catch (FileNotFoundException unntak) {
+			System.out.println("Finner ikke filen!");
+			System.exit(-1);
+		}
+
+		BufferedReader tekstLeser = new BufferedReader(tekstFilLeser);
+		String linje = null;
+		int linjenr = 0;
+		try {
+			linje = tekstLeser.readLine();
+			while (linje != null) {
+				foretaBalansering(linje, linjenr);
+				linje = tekstLeser.readLine();
+				linjenr++;
+			}
+
+			if (!stabel.erTom()) {
+				System.out.println("Stabelen er ikke tom etter innlesing.");
+				while (!stabel.erTom()) {
+					feil = false;
+					Parentesinfo rest = stabel.pop();
+					System.out.println(rest.toStringRest());
+				}
+			}
+			if (feil == true) {
+				System.out.println("Filen er balansert.");
+			} else {
+				System.out.println("Filen er dermed ikke balansert.");
+			}
+		}
+
+		catch (IOException unntak) {
+			System.out.println("Feil ved innlesing!");
+			System.exit(-1);
+		}
+		try {
+			tekstFilLeser.close();
+		} catch (IOException unntak) {
+			System.out.println("Feil ved lukking av fil!");
+		}
+
+	}
+
+} // Denne mangler en tilsvarende åpningsparentes

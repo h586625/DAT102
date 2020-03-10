@@ -1,0 +1,29 @@
+public Parentesinfo(int linjenr, int posisjon, char venstreparentes) {
+	this.linjenr = linjenr;
+	this.posisjon = posisjon;
+	this.venstreparentes = venstreparentes;
+}
+
+public void setLinjenr(int nyttLinjenr) {
+	linjenr = nyttLinjenr;
+}
+
+public void setPosisjon(int nyPosisjon) {
+	posisjon = nyPosisjon;
+}
+
+public void setVenstreparentes(char nyVenstreparentes) {
+	venstreparentes = nyVenstreparentes;
+}
+
+public int getLinjenr() {
+	return linjenr;
+}
+
+public int getPosisjon() {
+	return posisjon;
+}
+
+public char getVenstreparentes() {
+	return venstreparentes;
+}

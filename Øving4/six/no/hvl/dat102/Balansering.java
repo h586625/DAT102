@@ -23,7 +23,7 @@ public class Balansering {
 		default:
 			return false;
 		}
-	}//
+	}
 
 	public void foretaBalansering(String innDataStreng, int linjenr) {
 		int lengde = innDataStreng.length();
@@ -46,7 +46,7 @@ public class Balansering {
 				if (syntaksStabel.erTom()) {
 					feil = true;
 					System.out.println(
-							new Parentesinfo(linjenr, i, parentes).toStringTomStabel()
+							new Parentesinfo(linjenr, i+1, parentes).toStringTomStabel()
 							);
 				}
 
@@ -76,7 +76,7 @@ public class Balansering {
 
 		BufferedReader tekstLeser = new BufferedReader(tekstFilLeser);
 		String linje = null;
-		int linjenr = 0;
+		int linjenr = 1;
 		try {
 			linje = tekstLeser.readLine();
 			while (linje != null) {
@@ -93,10 +93,10 @@ public class Balansering {
 					System.out.println(rest.toStringRest());
 				}
 			}
-			if (feil == true) {
+			if (!feil) {
 				System.out.println("Filen er balansert.");
 			} else {
-				System.out.println("Filen er ikke balansert.");
+				System.out.println("Filen er dermed ikke balansert.");
 			}
 		}
 

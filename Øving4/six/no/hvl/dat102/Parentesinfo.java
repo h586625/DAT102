@@ -1,6 +1,6 @@
 package no.hvl.dat102;
 
-public class Parentesinfo{
+public class Parentesinfo {
 
 	private int linjenr;
 	private int posisjon;
@@ -37,13 +37,13 @@ public class Parentesinfo{
 	public char getVenstreparentes(){ return venstreparentes; }
 
 	public String toStringIkkeBalansert() {
-		return String.format("Åpnesymbol %c på linje nr %d, tegn nr %d har feil lukkeparentes", venstreparentes, linjenr, posisjon);
+		return String.format("Åpningsparentes \"%c\" \npå linjenr. %d, \ntegn nr. %d \nhar feil lukkeparentes.", venstreparentes, linjenr, posisjon);
 	}
 
 	public String toStringRest() {
-		return String.format("Åpnesymbol %c på linje nr %d, teikn nr %d mangler tilsvarande lukkeparentes", venstreparentes, linjenr, posisjon);
+		return String.format("Åpningsparentes \"%c\" \npå linjenr. %d, \ntegn nr. %d \nmangler tilsvarende lukkeparentes.", venstreparentes, linjenr, posisjon);
 	}
 	public String toStringTomStabel() {
-		return String.format("Lukkesymbol %c på linjenr %d, teikn nr %d mangler tilsvarende åpneparentes.", venstreparentes, linjenr, posisjon);
+		return String.format("Lukkeparentes \"%c\" \npå linjenr. %d, \ntegn nr. %d \nmangler tilsvarende åpningsparentes.", venstreparentes, linjenr, posisjon);
 	}
 }

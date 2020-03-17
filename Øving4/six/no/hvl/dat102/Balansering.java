@@ -40,7 +40,6 @@ public class Balansering {
 			// then pop from stack and check if the
 			// popped parenthesis is a matching pair
 			if (parentes == '}' || parentes == ')' || parentes == ']') {
-
 				// If we see an ending parenthesis without
 				// a pair then return false
 				if (syntaksStabel.erTom()) {
@@ -49,7 +48,6 @@ public class Balansering {
 							new Parentesinfo(linjenr, i+1, parentes).toStringTomStabel()
 							);
 				}
-
 				// Pop the top element from stack, if
 				// it is not a pair parenthesis of character
 				// then there is a mismatch. This happens for
@@ -99,7 +97,6 @@ public class Balansering {
 				System.out.println("Filen er dermed ikke balansert.");
 			}
 		}
-
 		catch (IOException unntak) {
 			System.out.println("Feil ved innlesing!");
 			System.exit(-1);

@@ -21,54 +21,19 @@ public class KjedetOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 	}
 
 	@Override
-	public T fjernFoerste() {
-		if (erTom())
-			throw new EmptyCollectionException("ordnet liste");
-
-		T resultat = foerste.getElement();
-		foerste = foerste.getNeste();
-		antall--;
-
-		if(erTom()) {
-			siste = null;
-		}
-
-		return resultat;
-	}
-
-	@Override
-	public T fjernSiste() {
-		if (erTom())
-			throw new EmptyCollectionException("ordnet liste");
-
-		T resultat = siste.getElement();
-		antall--;
-		if(antall == 0) {
-			foerste = null;
-			siste = null;
-		} else {
-			siste = foerste;
-			for(int pos = 1; pos < antall; pos++) {
-				siste = siste.getNeste();
-			}
-			siste.setNeste(null);
-		}
-
-		return resultat;
-	}
-
-	@Override
 	public T foerste() {
-		if (erTom())
+		if (erTom()) {
 			throw new EmptyCollectionException("ordnet liste");
+		}
 
 		return foerste.getElement();
 	}
 
 	@Override
 	public T siste() {
-		if (erTom())
+		if (erTom()) {
 			throw new EmptyCollectionException("ordnet liste");
+		}
 
 		return siste.getElement();
 	}
@@ -84,28 +49,57 @@ public class KjedetOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 	}
 
 	@Override
-	public void leggTil(T element) {
-		LinearNode<T> ny = new LinearNode<T>(element);
-
+	public boolean inneholder(T element) {
 		LinearNode<T> denne = foerste;
-		LinearNode<T> forrige = null;
-
-		while(denne != null && element.compareTo(denne.getElement()) > 0) {
-			forrige = denne;
+		boolean resultat = false;
+		while (denne != null && element.compareTo(denne.getElement()) > 0) {
 			denne = denne.getNeste();
 		}
+		if (denne != null) {
+			if (element.equals(denne.getElement())) {
+				resultat = true;
+			}
+		} // ikke-funn
+		return resultat;
+	}
 
-		if(forrige == null) {//sett inn foran
-			ny.setNeste(foerste);
-			foerste = ny;
-		} else {//sett inn mellom forrige og denne
-			ny.setNeste(denne);
-			forrige.setNeste(ny);
+	@Override
+	public T fjernFoerste() {
+		if (erTom()) {
+			throw new EmptyCollectionException("ordnet liste");
 		}
-		if(denne == null) { //oppdaterer siste
-			siste = ny;
+
+		T resultat = foerste.getElement();
+		foerste = foerste.getNeste();
+		antall--;
+
+		if (erTom()) {
+			siste = null;
 		}
-		antall++;
+
+		return resultat;
+	}
+
+	@Override
+	public T fjernSiste() {
+		if (erTom()) {
+			throw new EmptyCollectionException("ordnet liste");
+		}
+
+		T resultat = siste.getElement();
+		antall--;
+		if (antall == 0) {
+			foerste = null;
+			siste = null;
+		} else {
+			siste = foerste;
+			for (int pos = 1; pos < antall; pos++) {
+				siste = siste.getNeste();
+			}
+			siste.setNeste(null);
+		}
+
+		return resultat;
 	}
 
 	@Override
@@ -135,18 +129,29 @@ public class KjedetOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 	}
 
 	@Override
-	public boolean inneholder(T element) {
+	public void leggTil(T element) {
+		LinearNode<T> ny = new LinearNode<T>(element);
+
 		LinearNode<T> denne = foerste;
-		boolean resultat = false;
+		LinearNode<T> forrige = null;
+
+		// finner ut hvor vi skal plassere elementet
 		while (denne != null && element.compareTo(denne.getElement()) > 0) {
+			forrige = denne;
 			denne = denne.getNeste();
 		}
-		if (denne != null) {
-			if (element.equals(denne.getElement())) {
-				resultat = true;
-			}
-		} // ikke-funn
-		return resultat;
+
+		if (forrige == null) { //sett inn foran
+			ny.setNeste(foerste);
+			foerste = ny;
+		} else { //sett inn mellom forrige og denne
+			ny.setNeste(denne);
+			forrige.setNeste(ny);
+		}
+		if (denne == null) { //oppdaterer siste
+			siste = ny;
+		}
+		antall++;
 	}
 
 }// class

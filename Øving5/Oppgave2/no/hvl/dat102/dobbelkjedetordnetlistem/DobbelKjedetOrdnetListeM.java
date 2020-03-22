@@ -49,12 +49,10 @@ public class DobbelKjedetOrdnetListeM<T extends Comparable<T>> implements Dobbel
 
 		if ((el.compareTo(foerste.getElement()) <= 0) || (el.compareTo(siste.getElement()) >= 0)) {
 			// Ugyldig. Alternativt kan vi ha det som et forkrav!
-			System.out.println("Ugyldig verdi. verdi > " + foerste.getElement() + "verdi < " + siste.getElement());
-
+			System.out.println("Ugyldig verdi. verdi > " + foerste.getElement() +
+					"verdi < " + siste.getElement());
 		} else { // Kun lovlige verdier
-
 			antall++;
-
 			if (el.compareTo(midten.getElement()) >= 0) {
 				// Finn plass i siste halvdel
 				p = midten.getNeste();
@@ -68,11 +66,12 @@ public class DobbelKjedetOrdnetListeM<T extends Comparable<T>> implements Dobbel
 
 			// Setter inn:
 			// Innsett foran noden som p peker på
-
 			DobbelNode<T> nyNode = new DobbelNode<T>(el);
-
-			// Fyll ut med noen få setninger
-
+			DobbelNode<T> forrige = p.getForrige();
+			nyNode.setNeste(p);
+			nyNode.setForrige(forrige);
+			p.setForrige(nyNode);
+			forrige.setNeste(nyNode);
 			// Oppdaterer ny midten
 			nyMidten();
 
@@ -83,17 +82,19 @@ public class DobbelKjedetOrdnetListeM<T extends Comparable<T>> implements Dobbel
 	// **********************************************************************************
 	// Hjelpemetode til å finne ny midten.
 	// Mindre effektiv fordi vi må gjennomgå ca halve listen, men greit nok,
-	// ellers kan en teste på om antall er partall er oddetall ved oppdatering
+	// ellers kan en teste på om antall er partall eller oddetall ved oppdatering
 	// av midtpeker
 	// *********************************************************************************
 	private void nyMidten() {
-		int midtNR = antall / 2;
-		DobbelNode<T> p = foerste.getNeste();
-		for (int i = 1; i <= midtNR; i++) {
-			p = p.getNeste();
+		if (antall % 2 == 0) {
+			int midtNR = antall / 2;
+			DobbelNode<T> p = foerste.getNeste();
+			for (int i = 1; i <= midtNR; i++) {
+				p = p.getNeste();
+			}
+			midten = p;
 		}
-		midten = p;
-	}//
+	}
 
 	// ***********************************************************************************
 	// *
@@ -140,35 +141,20 @@ public class DobbelKjedetOrdnetListeM<T extends Comparable<T>> implements Dobbel
 		if ((el.compareTo(foerste.getElement()) <= 0) || (el.compareTo(siste.getElement()) >= 0)) {
 			// Ugyldig. Alternativt kan vi ha det som et forkrav!
 			System.out.println("Ugyldig verdi. verdi > " + foerste.getElement() + "verdi < " + siste.getElement());
-
 		} else { // Kun lovlige verdier
+			p = finn(el);
 
-			if (el.compareTo(midten.getElement()) >= 0) {
-				p = midten;
-			} else {
-				p = foerste.getNeste();
-			}
-
-			while (el.compareTo(p.getElement()) > 0) {
-				p = p.getNeste();
-			} // while
-
-			if (el.compareTo(p.getElement()) == 0) {
-				funnet = true;
-			}
-
-			if (funnet) {
+			if (p != null) {
 				// Tar ut
-				antall = antall - 1;
-				// Fyll ut med noen få setninger.
-
+				antall--;
+				DobbelNode<T> forrige = p.getForrige();
+				forrige.setNeste(p.getNeste());
+				p.getNeste().setForrige(forrige);
 				// Oppadtere midten
 				nyMidten();
 
 				resultat = p.getElement();
-
-			} // funnet
-
+			}
 		} // lovlige
 		return resultat;
 	}//

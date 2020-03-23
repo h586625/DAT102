@@ -128,7 +128,7 @@ public class KlientTelefonliste {
 		/* Binærsøking - tabellen er sortert */
 
 		/* Binærsøking som returnerer sann eller usann */
-		System.out.println("\nUtskrift fra rekursiv binaersoking som returnerer sann eller usann ");
+		System.out.println("\nUtskrift fra rekursiv binaersoking som returnerer sann eller usann.");
 
 		funnet = SorteringOgSoeking.binaerSoek(vennerS, 0, vennerS.length - 1, kontakt1);
 
@@ -151,9 +151,9 @@ public class KlientTelefonliste {
 		}
 
 		/* Rekursiv binærsøking som returnerer true ved funn ellers false */
-		System.out.println("\nUtskrift fra ikke rekursiv binaersoking som returnerer indeksen, -1 ved ikke-funn.");
+		System.out.println("\nUtskrift fra rekursiv binaersoking som returnerer sann eller usann.");
 
-		funnet = SorteringOgSoeking.binaerSoek(vennerS, 0, vennerS.length - 1, kontakt1);
+		funnet = SorteringOgSoeking.binaerSoek2(vennerS, 0, vennerS.length - 1, kontakt1);
 
 		if (funnet) {
 			System.out.print(kontakt1);
@@ -173,12 +173,12 @@ public class KlientTelefonliste {
 			System.out.println(" er ikke med");
 		}
 
-		/* Rekursiv binærsøking som returnerer true ved funn ellers false */
+		/* Rekursivt binærsøk som returnerer indeks */
 		System.out.println("\nUtskrift fra rekursiv binaersoking som returnerer indeksen, -1 ved ikke-funn.");
 
-		funnet = SorteringOgSoeking.binaerSoek2(vennerS, 0, vennerS.length - 1, kontakt1);
+		int funnet2 = SorteringOgSoeking.binaerSoek3(vennerS, 0, vennerS.length - 1, kontakt1);
 
-		if (funnet) {
+		if (funnet2 > -1) {
 			System.out.print(kontakt1);
 			System.out.println(" er med");
 		} else {
@@ -186,19 +186,15 @@ public class KlientTelefonliste {
 			System.out.println(" er ikke med");
 		}
 
-		funnet = SorteringOgSoeking.binaerSoek2(vennerS, 0, vennerS.length - 1, kontakt2);
+		funnet2 = SorteringOgSoeking.binaerSoek3(vennerS, 0, vennerS.length - 1, kontakt2);
 
-		if (funnet) {
+		if (funnet2 > -1) {
 			System.out.print(kontakt2);
 			System.out.println(" er med");
 		} else {
 			System.out.print(kontakt2);
 			System.out.println(" er ikke med");
 		}
-
-		/* TODO
-		 *  Rekursiv binærsøk som returnerer indeks
-		 */
 
 		/* Sortering av usorterte tabeller , venner1, venner2, venner3 */
 
@@ -210,15 +206,11 @@ public class KlientTelefonliste {
 			System.out.println(venner1[indeks]);
 		}
 
-		/*
-		 * TODO Sortering ved innsetting
-		 * System.out.println("\nSortering ved innsetting");
-		 * SoekingOgSortering.sorteringVedInnsetting(venner2);
-		 *
-		 * for (int indeks = 0; indeks < venner2.length; indeks++) {
-		 * System.out.println(venner2[indeks]); }
-		 *
-		 */
+		System.out.println("\nSortering ved innsetting");
+		SorteringOgSoeking.sorteringVedInnsetting(venner2);
+		for (int indeks = 0; indeks < venner2.length; indeks++) {
+			System.out.println(venner2[indeks]);
+		}
 
 		/* Boblesortering */
 		System.out.println("\nBoblesortering");
@@ -228,29 +220,27 @@ public class KlientTelefonliste {
 			System.out.println(venner3[indeks]);
 		}
 
-
-
 		System.out.println("\nBoblesortering med flagg");
 		SorteringOgSoeking.bobleSortFlagg(venner6);
 
 		for (int indeks = 0; indeks < venner6.length; indeks++) {
-			System.out.println(venner6[indeks]); }
+			System.out.println(venner6[indeks]);
+		}
 
+		System.out.println("\nKvikksortering");
+		SorteringOgSoeking.kvikkSort(venner4);
 
-		/*
-		 * TODO Kvikksortering System.out.println("\nKvikksortering");
-		 * SoekingOgSortering.kvikkSort(venner4, 0, venner4.length - 1);
-		 *
-		 * for (int indeks = 0; indeks < venner4.length; indeks++) {
-		 * System.out.println(venner4[indeks]); }
-		 */
+		for (int indeks = 0; indeks < venner4.length; indeks++) {
+			System.out.println(venner4[indeks]);
+		}
 
-		/*
-		 * TODO Flettesortering System.out.println("\nFlettesortering");
-		 * SoekingOgSortering.fletteSort(venner5, 0, venner5.length - 1);
-		 *
-		 * for (int indeks = 0; indeks < venner5.length; indeks++) {
-		 * System.out.println(venner5[indeks]); }
-		 */
+		System.out.println("\nFlettesortering");
+		SorteringOgSoeking.fletteSort(venner5, 0, venner5.length - 1);
+
+		for (int indeks = 0; indeks < venner5.length; indeks++) {
+			System.out.println(venner5[indeks]);
+		}
+
 	}// main
+
 }// class

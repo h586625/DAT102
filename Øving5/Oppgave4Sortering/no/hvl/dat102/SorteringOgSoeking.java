@@ -159,7 +159,7 @@ public class SorteringOgSoeking {
 	 *
 	 * @param data som skal sorteres
 	 */
-	public static <T extends Comparable<T>> void utvalgsSortering(T[] data) {
+	public static <T extends Comparable<T>> void utvalgSort(T[] data) {
 		int minste;
 		T temp;
 		for (int neste = 0; neste < data.length - 1; neste++) {

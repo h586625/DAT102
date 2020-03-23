@@ -4,6 +4,7 @@ import static no.hvl.dat102.SorteringOgSoeking.bobleSort;
 import static no.hvl.dat102.SorteringOgSoeking.fletteSort;
 import static no.hvl.dat102.SorteringOgSoeking.kvikkSort;
 import static no.hvl.dat102.SorteringOgSoeking.sorteringVedInnsetting;
+import static no.hvl.dat102.SorteringOgSoeking.utvalgSort;
 
 public class KlientUtfoeringstider {
 	public static Integer[] tallTabell = {
@@ -45,6 +46,12 @@ public class KlientUtfoeringstider {
 			}
 			System.out.print(tallTabell[i]);
 		}
+
+		// Utvalgssortering
+		System.out.println("\n\nUtskrift etter at talltabellen er sortert med \"utvalgssortering\":");
+		Integer[] kopi3 = kopierOriginalTabell(tallTabell);
+		utvalgSort(kopi3);
+		skrivUtTallTabell(kopi3);
 
 		// Sortering ved innsetting
 		System.out.println("\n\nUtskrift etter at talltabellen er sortert ved innsetting:");

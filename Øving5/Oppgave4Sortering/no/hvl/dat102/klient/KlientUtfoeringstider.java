@@ -105,16 +105,30 @@ public class KlientUtfoeringstider {
 		// Utføringstider
 		// ====================================================
 
-		System.out.println("=====UTFØRINGSTIDER=====");
+		System.out.println("\n\n=====UTFØRINGSTIDER=====");
 
 		Integer[] elementer32K = getElementer(SIZE_32K);
+		Integer[] elementer64K = getElementer(SIZE_64K);
+		Integer[] elementer128K = getElementer(SIZE_128K);
+
+		// Utvalgssortering
 		Instant start1 = Instant.now();
 		utvalgSort(elementer32K);
 		Instant finish1 = Instant.now();
 		long timeElapsed1 = Duration.between(start1, finish1).toMillis();
+		Instant start2 = Instant.now();
+		utvalgSort(elementer64K);
+		Instant finish2 = Instant.now();
+		long timeElapsed2 = Duration.between(start2, finish2).toMillis();
+		Instant start3 = Instant.now();
+		utvalgSort(elementer128K);
+		Instant finish3 = Instant.now();
+		long timeElapsed3 = Duration.between(start3, finish3).toMillis();
 		System.out.println("\nUtvalgssortering:");
 		System.out.println("n \t Målt tid");
-		System.out.print(SIZE_32K + "\t" + timeElapsed1 + "ms");
+		System.out.print(SIZE_32K + "\t" + timeElapsed1 + "ms\n");
+		System.out.print(SIZE_64K + "\t" + timeElapsed2 + "ms\n");
+		System.out.print(SIZE_128K + "\t" + timeElapsed3 + "ms\n");
 	} // main
 
 }

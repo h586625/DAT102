@@ -33,7 +33,7 @@ public class TestSorteringOgSoeking {
 
 	@Test
 	public final void testUtvalgssortering() {
-		SorteringOgSoeking.utvalgsSortering(kopier);
+		SorteringOgSoeking.utvalgSort(kopier);
 		boolean sortert = erSortert(kopier);
 		assertTrue(sortert);
 	}

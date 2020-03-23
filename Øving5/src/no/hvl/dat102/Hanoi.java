@@ -3,7 +3,7 @@ package no.hvl.dat102;
 public class Hanoi {
 
 	private int antallRinger;
-	private int antallFlyttinger;
+	private long antallFlyttinger;
 
 	public Hanoi(int startRinger) {
 		antallRinger = startRinger;

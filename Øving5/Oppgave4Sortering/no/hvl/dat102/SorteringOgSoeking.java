@@ -1,5 +1,7 @@
 package no.hvl.dat102;
 
+import no.hvl.dat102.adt.KoeADT;
+
 public class SorteringOgSoeking {
 
 	/*************************************************************************************************/
@@ -402,5 +404,46 @@ public class SorteringOgSoeking {
 			h++;
 		}
 	} // flette()
+
+	/**
+	 * Radix sort
+	 *
+	 * @param T data som skal sorteres
+	 */
+	public static <T extends Comparable<T>> void radixSort(T[] data) {
+		String temp;
+		T nrObj;
+		int digit, nr;
+		@SuppressWarnings("unchecked")
+		KoeADT<T>[] digitKoer = new SirkulaerKoe[10];
+
+		for (int digitValue = 0; digitValue <= 9; digitValue++) {
+			digitKoer[digitValue] = new SirkulaerKoe<T>();
+		}
+
+		// Sort list
+		for (int pos = 0; pos < 2; pos++) {
+			for (int i = 0; i < data.length; i++) {
+				temp = String.valueOf(data[i]);
+				digit = Character.digit(temp.charAt(1-pos), 10);
+				digitKoer[digit].innKoe(data[i]);
+			}
+		}
+
+		// Gather numbers back into list
+		nr = 0;
+		for (int digitValue = 0; digitValue <= 9; digitValue++) {
+			while (!(digitKoer[digitValue].isEmpty())) {
+				nrObj = digitKoer[digitValue].utKoe();
+				data[nr] = nrObj;
+				nr++;
+			}
+		}
+
+		// Print out sorted list
+		for (int i = 0; i < data.length; i++) {
+			System.out.println(data[i]);
+		}
+	} // radixSort()
 
 }// class

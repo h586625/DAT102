@@ -6,7 +6,25 @@ import static no.hvl.dat102.SorteringOgSoeking.kvikkSort;
 import static no.hvl.dat102.SorteringOgSoeking.sorteringVedInnsetting;
 import static no.hvl.dat102.SorteringOgSoeking.utvalgSort;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Random;
+
 public class KlientUtfoeringstider {
+	private static final int SIZE_32K = 32000;
+	private static final int SIZE_64K = 64000;
+	private static final int SIZE_128K = 128000;
+
+	public static Integer[] getElementer(int size) {
+		// Creates a new array with n(SIZE) random integers
+		Integer[] elementer = new Integer[size];
+		Random rInt = new Random();
+		for (int i = 0; i < elementer.length; i++) {
+			elementer[i] = rInt.nextInt();
+		}
+		return elementer;
+	}
+
 	public static Integer[] tallTabell = {
 			Integer.valueOf(14),
 			Integer.valueOf(56),
@@ -79,9 +97,24 @@ public class KlientUtfoeringstider {
 
 		// Radix sort
 		//		System.out.println("\n\nRadix-sort:");
-		//		Integer[] kopi3 = kopierOriginalTabell(tallTabell);
-		//		SorteringOgSoeking.radixSort(kopi3);
-		//		skrivUtTallTabell(kopi3);
+		//		Integer[] kopi6 = kopierOriginalTabell(tallTabell);
+		//		radixSort(kopi6);
+		//		skrivUtTallTabell(kopi6);
+
+		// ====================================================
+		// Utføringstider
+		// ====================================================
+
+		System.out.println("=====UTFØRINGSTIDER=====");
+
+		Integer[] elementer32K = getElementer(SIZE_32K);
+		Instant start1 = Instant.now();
+		utvalgSort(elementer32K);
+		Instant finish1 = Instant.now();
+		long timeElapsed1 = Duration.between(start1, finish1).toMillis();
+		System.out.println("\nUtvalgssortering:");
+		System.out.println("n \t Målt tid");
+		System.out.print(SIZE_32K + "\t" + timeElapsed1 + "ms");
 	} // main
 
 }

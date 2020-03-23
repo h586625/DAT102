@@ -9,7 +9,7 @@ public class SorteringOgSoeking {
 	/**
 	 * Metoden gjør et lineært søk i en tabell av usorterte data
 	 *
-	 * @param data er data som skal søkes i
+	 * @param er data som skal søkes i
 	 * @param min  er startindeks
 	 * @param maks er sluttindeks
 	 * @param el   er verdien vi søker etter
@@ -25,12 +25,12 @@ public class SorteringOgSoeking {
 			indeks++;
 		} // while
 		return funnet;
-	}// metode
+	}
 
 	/**
 	 * Metoden gjør et lineært søk i en sortert tabell av data
 	 *
-	 * @param data er data som skal søkes i
+	 * @param er data som skal søkes i
 	 * @param min  er startindeks
 	 * @param maks er sluttindeks
 	 * @param el   verdien vi søker etter
@@ -49,13 +49,12 @@ public class SorteringOgSoeking {
 		}
 
 		return funnet;
-
-	}// metode
+	}
 
 	/**
 	 * Metoden gjør et binært søk i en *sortert* tabell av data
 	 *
-	 * @param data er data som skal søkes i
+	 * @param er data som skal søkes i
 	 * @param min  er startindeks
 	 * @param maks er sluttindeks
 	 * @param el   er elementet vi søker etter
@@ -74,18 +73,22 @@ public class SorteringOgSoeking {
 		if (resultat == 0) { // basistilfelle, finner elementet
 			return true;
 		}
-		if (resultat < 0) {// (her vil også fungere med else if)
-			return binaerSoek(data, min, midtpunkt - 1, el);
+		if (resultat < 0) {
+			return binaerSoek(data, min, midtpunkt-1, el);
 		} else { // resultat > 0
-			return binaerSoek(data, midtpunkt + 1, maks, el);
+			return binaerSoek(data, midtpunkt+1, maks, el);
 		}
-	}//
+	}
 
 	// Alt 2
 	public static <T extends Comparable<T>> boolean binaerSoek2(T[] data, int min, int maks, T el) {
 		boolean funnet;
 		int midtpunkt = (min + maks) / 2;
 		int resultat = el.compareTo(data[midtpunkt]);
+
+		// tregere enn alt1 da vi regner ut midtpunkt sin
+		// verdi osv. selv om vi nødvendig ikke trenger det
+		// om første betingelse viser seg å være sann
 
 		if (min > maks) { // basistilfelle, ingen element
 			funnet = false;
@@ -98,36 +101,54 @@ public class SorteringOgSoeking {
 		}
 
 		return funnet;
-
 	}
 
-	/* Rekursiv binærsøk som returnerer indeks */
+	/* Rekursivt binærsøk som returnerer "indeks" */
 	// Alt 3
 	public static <T extends Comparable<T>> int binaerSoek3(T[] data, int min, int maks, T el) {
-		// Returnerer indeksen til målelementet hvis det fins ellers -1
+		// Returnerer indeksen til målelementet hvis det fins, ellers -1
 		if (min > maks) { // basistilfelle, ingen element
 			return -1;
 		}
 
 		int midtpunkt = (min + maks) / 2;
 		int resultat = el.compareTo(data[midtpunkt]);
+
 		if (resultat == 0) { // basistilfelle, finner elementet
 			return midtpunkt;
 		}
-		if (resultat < 0) {// ( vil her også fungere med else if)
+		if (resultat < 0) {
 			return binaerSoek3(data, min, midtpunkt - 1, el);
 		} else { // resultat > 0
 			return binaerSoek3(data, midtpunkt + 1, maks, el);
 		}
-	}// metode
+	}
 
-	/* Ikke rekursiv binærsøk som returnerer indeks */
+	/* Ikke-rekursivt binærsøk som returnerer indeks */
 	// Alt 4
 	public static <T extends Comparable<T>> int binaerSoek4(T[] data, int min, int maks, T el) {
-		return maks;
 		// Returnerer indeksen til målelementet hvis det fins ellers -1
-		// Fyll ut og kjør metoden
-	}//
+		boolean funnet = false;
+		int midtpunkt = (min + maks) / 2;
+		int resultat = el.compareTo(data[midtpunkt]);
+
+		while (min < maks && !funnet) {
+			midtpunkt = (min + maks) / 2;
+			resultat = el.compareTo(data[midtpunkt]);
+
+			if (resultat == 0) { // finner elementet
+				funnet = true;
+				return midtpunkt;
+			}
+			if (resultat < 0) {
+				maks = midtpunkt-1;
+			} else { // resultat > 0
+				min = midtpunkt+1;
+			}
+		}
+
+		return -1;
+	}
 
 	/*************************************************************************************************/
 	// Sorteringsalgoritmer
@@ -136,7 +157,7 @@ public class SorteringOgSoeking {
 	/**
 	 * Utvalgssortering
 	 *
-	 * @param data er data som skal sorteres
+	 * @param data som skal sorteres
 	 */
 	public static <T extends Comparable<T>> void utvalgsSortering(T[] data) {
 		int minste;
@@ -154,18 +175,14 @@ public class SorteringOgSoeking {
 			data[minste] = data[neste];
 			data[neste] = temp;
 		} // ytre for-løkke
-	}// metode
+	}
 
 	/**
 	 * Sortering ved innsetting
 	 *
-	 * @param data er data som skal sorteres
-	 */
-	// ...
-	/**
-	 *
+	 * @param data som skal sorteres
 	 * @param <T>  generisk type
-	 * @param data er tabellen som skal sorteres
+	 * @param tabellen som skal sorteres
 	 */
 	public static <T extends Comparable<T>> void bobleSort(T[] data) {
 		T temp;
@@ -179,13 +196,12 @@ public class SorteringOgSoeking {
 				}
 			} // indre løkke
 		} // ytre løkke
-
-	}// metode
+	}
 
 	public static <T extends Comparable<T>> void bobleSortFlagg(T[] data) {
 		/*
-		 * Sjekker om det ha vært ombyttinger i nåværende gjennomløp. Dersom ingen
-		 * ombyttinger så avbrytes prosessen.
+		 * Sjekker om det ha vært ombyttinger i nåværende gjennomløp.
+		 * Dersom ingen ombyttinger avbrytes prosessen.
 		 */
 		T temp = null;
 		int fase = 1;
@@ -206,7 +222,163 @@ public class SorteringOgSoeking {
 			fase++;
 
 		} while (byttet); // ytre løkke
+	}
 
-	}// metode
+	/**
+	 * Kvikksortering
+	 *
+	 * @param <T> data som skal sorteres
+	 */
+	public static <T extends Comparable<T>> void kvikkSort(T[] data) {
+		kvikkSort(data, 0, data.length-1);
+	}
+
+	/**
+	 * Kvikksortering med minste- og maksverdi
+	 *
+	 * @param data som skal sorteres
+	 * @param <T> tabellen som skal sorteres
+	 * @param int minsteverdi
+	 * @param int maksverdi
+	 */
+	private static <T extends Comparable<T>> void kvikkSort(T[] data, int min, int maks) {
+		int posPartisjon;
+
+		if (min < maks) { // Minst to elementer
+			// Oppretter partisjon
+			posPartisjon = finnPartisjon(data, min, maks);
+			// Sorter venstreside
+			kvikkSort(data, min, posPartisjon-1);
+			// Sorter høyreside
+			kvikkSort(data, posPartisjon+1, maks);
+		}
+	} // kvikkSort()
+
+	/**
+	 * Finn partisjon (brukes sammen med kvikkSort metoden)
+	 *
+	 * @param data som skal sorteres
+	 * @param <T> tabellen som skal sorteres
+	 * @param int minsteverdi
+	 * @param int maksverdi
+	 * @return int
+	 */
+	private static <T extends Comparable<T>> int finnPartisjon(T[] data, int min, int maks) {
+		int venstre, hoyre;
+		T tmp, pivot;
+		// Pivot som første element. Boka bruker midterste.
+		pivot = data[min];
+		venstre = min;
+		hoyre = maks;
+
+		while (venstre < hoyre) {
+			while (venstre < hoyre && data[venstre].compareTo(pivot) <= 0) {
+				venstre++;
+			}
+
+			while (data[hoyre].compareTo(pivot) > 0) {
+				hoyre--;
+			}
+
+			// Bytter elementene
+			if (venstre < hoyre) {
+				tmp = data[venstre];
+				data[venstre] = data[hoyre];
+				data[hoyre] = tmp;
+			}
+		} // ytre løkke
+
+		// Flytter pivot til sin riktige og endelige plass
+		tmp = data[min];
+		data[min] = data[hoyre];
+		data[hoyre] = tmp;
+
+		return hoyre;
+	} // finnPartisjon()
+
+	/**
+	 * Flettesortering
+	 *
+	 * @param data som skal sorteres
+	 * @param <T> tabellen som skal sorteres
+	 * @param int første
+	 * @param int siste
+	 */
+	public static <T extends Comparable<T>> void fletteSort(T[] data, int forste, int siste) {
+		if (forste < siste) { // Minst to elementer
+			int midten = (forste + siste)/2;
+
+			// Sorter venstre halvdel
+			fletteSort(data, forste, midten);
+			// Sorter høyre halvdel
+			fletteSort(data, midten+1, siste);
+			// Fletter de to halvdelene
+			flette(data, forste, midten, siste);
+		}
+	} // fletteSort()
+
+	/**
+	 * Flette (Brukes sammen med fletteSort metoden)
+	 *
+	 * Fletter to sorterte deltabeller,
+	 * tabell[forste, midten] og tabell[midten+1, siste]
+	 * til en flettet sortert tabell
+	 *
+	 * @param data som skal sorteres
+	 * @param <T> tabellen som skal sorteres
+	 * @param int minsteverdi
+	 * @param int midtverdi
+	 * @param int maksverdi
+	 */
+	public static <T extends Comparable<T>> void flette(T[] data, int forste, int midten, int siste) {
+		int stor = siste - forste + 1;
+		@SuppressWarnings("unchecked")
+		T[] hjelpeTabell = (T[])(new Comparable[stor]);
+
+		// Start/slutt på venstre deltabell
+		int forste1 = forste;
+		int siste1 = midten;
+
+		// Start/slutt på høyre deltabell
+		int forste2 = midten+1;
+		int siste2 = siste;
+
+		// Så lenge deltabellene ikke er tomme,
+		// kopier det minste elementet til hjelpetabellen
+
+		int indeks = 0;
+
+		while ((forste1 <= siste1) && (forste2 <= siste2)) {
+			if (data[forste1].compareTo(data[forste2]) <= 0) {
+				hjelpeTabell[indeks] = data[forste1];
+				forste1++;
+			} else {
+				hjelpeTabell[indeks] = data[forste2];
+				forste2++;
+			}
+			indeks++;
+		}
+
+		// Kopiere resten av venstre del (kan være tom)
+		while (forste1 <= siste1) {
+			hjelpeTabell[indeks] = data[forste1];
+			forste1++;
+			indeks++;
+		}
+
+		// kopiere resten av høyre del (kan være tom)
+		while (forste2 <= siste2) {
+			hjelpeTabell[indeks] = data[forste2];
+			forste2++;
+			indeks++;
+		}
+
+		// Kopier resultatet tilbake til den originale tabellen
+		int h = 0;
+		for (indeks = forste; indeks <= siste; indeks++) {
+			data[indeks] = hjelpeTabell[h];
+			h++;
+		}
+	} // flette()
 
 }// class

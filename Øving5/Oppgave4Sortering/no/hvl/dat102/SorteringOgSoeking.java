@@ -178,7 +178,7 @@ public class SorteringOgSoeking {
 	}
 
 	/**
-	 * Sortering ved innsetting
+	 * Boblesortering
 	 *
 	 * @param data som skal sorteres
 	 * @param <T>  generisk type
@@ -223,6 +223,28 @@ public class SorteringOgSoeking {
 
 		} while (byttet); // ytre løkke
 	}
+
+	/**
+	 * Sortering ved innsetting
+	 *
+	 * @param T data som skal sorteres
+	 */
+	public static <T extends Comparable<T>> void sorteringVedInnsetting(T[] data) {
+		for (int i = 1; i < data.length-1; i++) {
+			T nokkel = data[i];
+			int p = i;
+
+			while (p > 0 && data[p-1].compareTo(nokkel) > 0) {
+				data[p] = data[p-1];
+				p--;
+			}
+
+			// if p-- in while() above, then we perform the swap
+			// otherwise, the value of the element
+			// will just be assigned to itself (no change)
+			data[p] = nokkel;
+		}
+	} // sorteringVedInnsetting()
 
 	/**
 	 * Kvikksortering

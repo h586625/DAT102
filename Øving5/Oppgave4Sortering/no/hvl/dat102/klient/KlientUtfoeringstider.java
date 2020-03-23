@@ -2,6 +2,7 @@ package no.hvl.dat102.klient;
 
 import static no.hvl.dat102.SorteringOgSoeking.fletteSort;
 import static no.hvl.dat102.SorteringOgSoeking.kvikkSort;
+import static no.hvl.dat102.SorteringOgSoeking.sorteringVedInnsetting;;
 
 public class KlientUtfoeringstider {
 	public static Integer[] tallTabell = {
@@ -44,6 +45,13 @@ public class KlientUtfoeringstider {
 			System.out.print(tallTabell[i]);
 		}
 
+		// Sortering ved innsetting
+		System.out.println();
+		System.out.println("\nUtskrift etter at talltabellen er sortert ved innsetting:");
+		Integer[] kopi4 = kopierOriginalTabell(tallTabell);
+		sorteringVedInnsetting(kopi4);
+		skrivUtTallTabell(kopi4);
+
 		// Kvikksortering
 		System.out.println("\nUtskrift etter at talltabellen er sortert med \"kvikksortering\":");
 		Integer[] kopi1 = kopierOriginalTabell(tallTabell);
@@ -53,7 +61,6 @@ public class KlientUtfoeringstider {
 		// Flettesortering
 		System.out.println("\nUtskrift etter at talltabellen er sortert med \"flettesortering\":");
 		Integer[] kopi2 = kopierOriginalTabell(tallTabell);
-		// venstre side
 		fletteSort(kopi2, 0, kopi2.length-1);
 		skrivUtTallTabell(kopi2);
 

@@ -230,7 +230,7 @@ public class SorteringOgSoeking {
 	 * @param T data som skal sorteres
 	 */
 	public static <T extends Comparable<T>> void sorteringVedInnsetting(T[] data) {
-		for (int i = 1; i < data.length-1; i++) {
+		for (int i = 1; i < data.length; i++) {
 			T nokkel = data[i];
 			int p = i;
 

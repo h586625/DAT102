@@ -408,13 +408,15 @@ public class SorteringOgSoeking {
 	/**
 	 * Radix sort
 	 *
+	 * Only works with two digits for now
+	 *
 	 * @param T data som skal sorteres
 	 */
+	@SuppressWarnings("unchecked")
 	public static <T extends Comparable<T>> void radixSort(T[] data) {
 		String temp;
 		T nrObj;
 		int digit, nr;
-		@SuppressWarnings("unchecked")
 		KoeADT<T>[] digitKoer = new SirkulaerKoe[10];
 
 		for (int digitValue = 0; digitValue <= 9; digitValue++) {
@@ -428,21 +430,16 @@ public class SorteringOgSoeking {
 				digit = Character.digit(temp.charAt(1-pos), 10);
 				digitKoer[digit].innKoe(data[i]);
 			}
-		}
 
-		// Gather numbers back into list
-		nr = 0;
-		for (int digitValue = 0; digitValue <= 9; digitValue++) {
-			while (!(digitKoer[digitValue].isEmpty())) {
-				nrObj = digitKoer[digitValue].utKoe();
-				data[nr] = nrObj;
-				nr++;
+			// Gather numbers back into list
+			nr = 0;
+			for (int digitValue = 0; digitValue <= 9; digitValue++) {
+				while (!(digitKoer[digitValue].isEmpty())) {
+					nrObj = digitKoer[digitValue].utKoe();
+					data[nr] = nrObj;
+					nr++;
+				}
 			}
-		}
-
-		// Print out sorted list
-		for (int i = 0; i < data.length; i++) {
-			System.out.println(data[i]);
 		}
 	} // radixSort()
 

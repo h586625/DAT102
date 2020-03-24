@@ -18,7 +18,7 @@ public class KlientUtfoeringstider {
 	public static Integer[] getElementer(int size) {
 		// Creates a new array with n(SIZE) random integers
 		Integer[] elementer = new Integer[size];
-		Random rInt = new Random();
+		Random rInt = new Random(1);
 		for (int i = 0; i < elementer.length; i++) {
 			elementer[i] = rInt.nextInt();
 		}
@@ -111,24 +111,29 @@ public class KlientUtfoeringstider {
 		Integer[] elementer64K = getElementer(SIZE_64K);
 		Integer[] elementer128K = getElementer(SIZE_128K);
 
-		// Utvalgssortering
+		// UTVALGSSORTERING
+		// Teoretisk tid 32K: 780ms = c*32000^2 <=> c = (7.6171875*10^-7)
+		// Teoretisk tid 64K: (7.6171875*10^-7)*64000^2 = t(n) = 3120ms
+		// Teoretisk tid 128K: (7.6171875*10^-7)*128000^2 = t(n) = 12480ms
 		Instant start1 = Instant.now();
 		utvalgSort(elementer32K);
 		Instant finish1 = Instant.now();
 		long timeElapsed1 = Duration.between(start1, finish1).toMillis();
-		Instant start2 = Instant.now();
-		utvalgSort(elementer64K);
-		Instant finish2 = Instant.now();
-		long timeElapsed2 = Duration.between(start2, finish2).toMillis();
-		Instant start3 = Instant.now();
-		utvalgSort(elementer128K);
-		Instant finish3 = Instant.now();
-		long timeElapsed3 = Duration.between(start3, finish3).toMillis();
-		System.out.println("\nUtvalgssortering:");
-		System.out.println("n \t Målt tid");
-		System.out.print(SIZE_32K + "\t" + timeElapsed1 + "ms\n");
-		System.out.print(SIZE_64K + "\t" + timeElapsed2 + "ms\n");
-		System.out.print(SIZE_128K + "\t" + timeElapsed3 + "ms\n");
+		//		Instant start2 = Instant.now();
+		//		utvalgSort(elementer64K);
+		//		Instant finish2 = Instant.now();
+		//		long timeElapsed2 = Duration.between(start2, finish2).toMillis();
+		//		Instant start3 = Instant.now();
+		//		utvalgSort(elementer128K);
+		//		Instant finish3 = Instant.now();
+		//		long timeElapsed3 = Duration.between(start3, finish3).toMillis();
+		System.out.println("\nUTVALGSSORTERING");
+		System.out.println("n \t\t Antall målinger");
+		System.out.print(SIZE_32K + "\t\t 1\n");
+		System.out.println("Målt tid \t Teoretisk tid c*f(n)");
+		System.out.print(timeElapsed1 + "ms \t\t 780ms");
+		//System.out.print(SIZE_64K + "\t" + timeElapsed2 + "ms\n");
+		//System.out.print(SIZE_128K + "\t" + timeElapsed3 + "ms\n");
 	} // main
 
 }

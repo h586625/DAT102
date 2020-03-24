@@ -15,7 +15,7 @@ public class KlientUtfoeringstider {
 	private static final int SIZE_32K = 32000;
 	private static final int SIZE_64K = 64000;
 	private static final int SIZE_128K = 128000;
-	private static final double c = 5.45898438e-7;
+	private static final double C = 5.45898438e-7;
 
 	enum Sorteringsalgoritme {
 		UTVALG,
@@ -116,38 +116,29 @@ public class KlientUtfoeringstider {
 	 * @param Sorteringsalgoritme sortType
 	 * @param int size of dataset (n elements)
 	 */
-	public static int utfoerTeoretiskEstimering(Sorteringsalgoritme sortType, int size) {
-		int teoretiskTid = 0;
+	public static double utfoerTeoretiskEstimering(Sorteringsalgoritme sortType, int size) {
+		double teoretiskTid = 0;
 
-		Integer[] utgspktElementer = getElementer(SIZE_32K);
-		Instant utgspktStart = Instant.now();
-
-		if (sortType.UTVALG != null || sortType.INNSETTING != null || sortType.BOBLE != null) {
+		switch (sortType) {
+		case UTVALG:
+		case INNSETTING:
+		case BOBLE:
 			System.out.println("O(n^2)");
-			runSortingAlgorithm(sortType, utgspktElementer);
-		} else if (sortType.KVIKK != null || sortType.FLETTING != null) {
+			teoretiskTid = C * Math.pow(size, 2);
+			break;
+		case KVIKK:
+		case FLETTING:
 			System.out.println("O(nlog2(n))");
-			runSortingAlgorithm(sortType, utgspktElementer);
-		} else if (sortType.RADIX != null) {
+			teoretiskTid = C * size * Math.log(size) / Math.log(2);
+			break;
+		case RADIX:
 			System.out.println("O(n)");
-			runSortingAlgorithm(sortType, utgspktElementer);
-		} else {
+			teoretiskTid = C * size;
+			break;
+		default:
 			System.out.println("Oppgi en gyldig O(f(n))");
+			break;
 		}
-
-		Instant utgspktFinish = Instant.now();
-		long utgspktTimeElapsed = Duration.between(utgspktStart, utgspktFinish).toMillis();
-
-		if (size == SIZE_32K) {
-			teoretiskTid = (int)utgspktTimeElapsed;
-			return teoretiskTid;
-		}
-
-		System.out.println("loool" + utgspktTimeElapsed);
-		// n^2:
-		// Teoretisk tid 32K: 780ms = c*32000^2 <=> c = (7.6171875*10^-7)
-		// Teoretisk tid 64K: (7.6171875*10^-7)*64000^2 = t(n) = 3120ms
-		// Teoretisk tid 128K: (7.6171875*10^-7)*128000^2 = t(n) = 12480ms
 
 		return teoretiskTid;
 	}
@@ -163,7 +154,7 @@ public class KlientUtfoeringstider {
 	public static void utfoerSorteringEstimering(Sorteringsalgoritme sortType, int size) {
 		Integer[] elementer = getElementer(size);
 
-		long teoretiskTid = utfoerTeoretiskEstimering(sortType, size);
+		long teoretiskTid = (long) utfoerTeoretiskEstimering(sortType, size);
 
 		// Benchmarking
 		Instant start = Instant.now();
@@ -235,9 +226,9 @@ public class KlientUtfoeringstider {
 		System.out.println("OBS! Det kan ta en stund før målingene vises.");
 
 		System.out.println("\nUTVALGSSORTERING");
-		utfoerSorteringEstimering(Sorteringsalgoritme.UTVALG, SIZE_32K);
-		//		utfoerSorteringEstimering(Sorteringsalgoritme.RADIX, SIZE_64K);
-		//		utfoerSorteringEstimering(Sorteringsalgoritme.RADIX, SIZE_128K);
+		utfoerSorteringEstimering(Sorteringsalgoritme.KVIKK, SIZE_128K);
+		//utfoerSorteringEstimering(Sorteringsalgoritme.BOBLE, SIZE_64K);
+		//utfoerSorteringEstimering(Sorteringsalgoritme.FLETTING, SIZE_128K);
 
 	} // main
 

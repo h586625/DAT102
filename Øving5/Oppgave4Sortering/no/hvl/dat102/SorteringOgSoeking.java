@@ -188,7 +188,7 @@ public class SorteringOgSoeking {
 	 */
 	public static <T extends Comparable<T>> void bobleSort(T[] data) {
 		T temp;
-		for (int p = data.length - 1; p >= 0; p--) {
+		for (int p = data.length - 1; p >= 0; p--) { // moves from right-to-left
 			for (int sok = 0; sok <= p - 1; sok++) {
 				if (data[sok].compareTo(data[sok + 1]) > 0) {
 					/* Bytt verdiene */
@@ -231,11 +231,40 @@ public class SorteringOgSoeking {
 	 *
 	 * @param T data som skal sorteres
 	 */
+
+	// e.g. 3, 4, 2, 1, 5  i=2
+	// 3, 2, 4, 1, 5
+	// j=1
+	// 2, 3, 4, 1, 5
+	// j=0 exit while()
+	// 2, 3, 4, 1, 5       i=3
+	// 2, 3, 1, 4, 5
+	// j = 2
+	// 2, 1, 3, 4, 5
+	// j=1
+	// 1, 2, 3, 4, 5
+	// j=0 exit while()
 	public static <T extends Comparable<T>> void sorteringVedInnsetting(T[] data) {
 		for (int i = 1; i < data.length; i++) {
 			T nokkel = data[i];
 			int p = i;
 
+			// shift smaller elements to the left
+			while (p > 0 && data[p-1].compareTo(nokkel) > 0) {
+				T tmp = data[p];
+				data[p] = data[p-1];
+				data[p-1] = tmp;
+				p--;
+			}
+		}
+	} // sorteringVedInnsetting()
+
+	public static <T extends Comparable<T>> void sorteringVedInnsetting2(T[] data) {
+		for (int i = 1; i < data.length; i++) {
+			T nokkel = data[i];
+			int p = i;
+
+			// shift bigger elements to the right
 			while (p > 0 && data[p-1].compareTo(nokkel) > 0) {
 				data[p] = data[p-1];
 				p--;
@@ -269,7 +298,7 @@ public class SorteringOgSoeking {
 		int posPartisjon;
 
 		if (min < maks) { // Minst to elementer
-			// Oppretter partisjon
+			// Oppretter partisjon og velger pivot
 			posPartisjon = finnPartisjon(data, min, maks);
 			// Sorter venstreside
 			kvikkSort(data, min, posPartisjon-1);
@@ -296,15 +325,20 @@ public class SorteringOgSoeking {
 		hoyre = maks;
 
 		while (venstre < hoyre) {
-			while (venstre < hoyre && data[venstre].compareTo(pivot) <= 0) {
+			while (data[venstre].compareTo(pivot) <= 0) {
+				// Move to the right until we find an element
+				// to the left that's > pivot
 				venstre++;
 			}
 
 			while (data[hoyre].compareTo(pivot) > 0) {
+				// Move to the left until we find an element
+				// to the right that's <= pivot
 				hoyre--;
 			}
 
-			// Bytter elementene
+			// Bytter venstre element med høyre element
+			// dersom venstre indeks < høyre indeks (de har ikke krysset hverandre)
 			if (venstre < hoyre) {
 				tmp = data[venstre];
 				data[venstre] = data[hoyre];
@@ -313,6 +347,8 @@ public class SorteringOgSoeking {
 		} // ytre løkke
 
 		// Flytter pivot til sin riktige og endelige plass
+		// høyre vil nå representere det midterste elementet
+		// og det er dit vi flytter pivot
 		tmp = data[min];
 		data[min] = data[hoyre];
 		data[hoyre] = tmp;

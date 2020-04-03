@@ -106,10 +106,12 @@ public class KjedetOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 	public T fjern(T element) {
 		T svar = null;
 		LinearNode<T> forrige = null, denne = foerste;
+		// Finner evt. posisjonen til element som skal slettes
 		while (denne != null && element.compareTo(denne.getElement()) > 0) {
 			forrige = denne;
 			denne = denne.getNeste();
 		}
+		// Sjekker om elementet faktisk er ekvivalent med det som skal slettes
 		if (denne != null && element.equals(denne.getElement())) { // funnet
 			antall--;
 			svar = denne.getElement();
@@ -136,6 +138,7 @@ public class KjedetOrdnetListe<T extends Comparable<T>> implements OrdnetListeAD
 		LinearNode<T> forrige = null;
 
 		// finner ut hvor vi skal plassere elementet
+		// her vil alltid denne være større enn element
 		while (denne != null && element.compareTo(denne.getElement()) > 0) {
 			forrige = denne;
 			denne = denne.getNeste();

@@ -359,10 +359,12 @@ public class SorteringOgSoeking {
 	/**
 	 * Flettesortering
 	 *
+	 * Delproblem: del tabellen i to og flett dem sammen sortert
+	 *
 	 * @param data som skal sorteres
 	 * @param <T> tabellen som skal sorteres
-	 * @param int første
-	 * @param int siste
+	 * @param int første indeks
+	 * @param int siste indeks
 	 */
 	public static <T extends Comparable<T>> void fletteSort(T[] data, int forste, int siste) {
 		if (forste < siste) { // Minst to elementer
@@ -382,17 +384,20 @@ public class SorteringOgSoeking {
 	 *
 	 * Fletter to sorterte deltabeller,
 	 * tabell[forste, midten] og tabell[midten+1, siste]
-	 * til en flettet sortert tabell
+	 * til en hjelpetabell og kopierer resultatet til den originale tabellen
+	 *
+	 * Forkrav: forste <= midten <= siste
 	 *
 	 * @param data som skal sorteres
 	 * @param <T> tabellen som skal sorteres
-	 * @param int minsteverdi
-	 * @param int midtverdi
-	 * @param int maksverdi
+	 * @param int forste indeks
+	 * @param int midten indeks
+	 * @param int siste indeks
 	 */
+	@SuppressWarnings("unchecked")
 	public static <T extends Comparable<T>> void flette(T[] data, int forste, int midten, int siste) {
+		// Oppretter hjelpetabell med riktig størrelse
 		int stor = siste - forste + 1;
-		@SuppressWarnings("unchecked")
 		T[] hjelpeTabell = (T[])(new Comparable[stor]);
 
 		// Start/slutt på venstre deltabell
@@ -405,9 +410,7 @@ public class SorteringOgSoeking {
 
 		// Så lenge deltabellene ikke er tomme,
 		// kopier det minste elementet til hjelpetabellen
-
 		int indeks = 0;
-
 		while ((forste1 <= siste1) && (forste2 <= siste2)) {
 			if (data[forste1].compareTo(data[forste2]) <= 0) {
 				hjelpeTabell[indeks] = data[forste1];
@@ -419,14 +422,14 @@ public class SorteringOgSoeking {
 			indeks++;
 		}
 
-		// Kopiere resten av venstre del (kan være tom)
+		// Kopier resten av venstre del (kan være tom)
 		while (forste1 <= siste1) {
 			hjelpeTabell[indeks] = data[forste1];
 			forste1++;
 			indeks++;
 		}
 
-		// kopiere resten av høyre del (kan være tom)
+		// kopier resten av høyre del (kan være tom)
 		while (forste2 <= siste2) {
 			hjelpeTabell[indeks] = data[forste2];
 			forste2++;
@@ -444,39 +447,57 @@ public class SorteringOgSoeking {
 	/**
 	 * Radix sort
 	 *
-	 * Only works with two digits for now
+	 * Overloads radixSort(data, numOfDigits).
+	 * Defaults to two digits.
+	 *
+	 * @param T data som skal sorteres
+	 */
+	public static <T extends Comparable<T>> void radixSort(T[] data) {
+		radixSort(data, 2);
+	}
+
+	/**
+	 * Radix sort
+	 *
+	 * Implemented with circular queues.
 	 *
 	 * @param T data som skal sorteres
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T extends Comparable<T>> void radixSort(T[] data) {
+	private static <T extends Comparable<T>> void radixSort(T[] data, int numOfDigits) {
 		String temp;
 		T nrObj;
 		int digit, nr;
 		KoeADT<T>[] digitKoer = new SirkulaerKoe[10];
 
+		// 10 allowed digit-values
+		// therefore, we create 10 circular queues
+		// and reuse them when necessary down below
 		for (int digitValue = 0; digitValue <= 9; digitValue++) {
 			digitKoer[digitValue] = new SirkulaerKoe<T>();
 		}
 
 		// Sort list
-		for (int pos = 0; pos < 2; pos++) {
-			for (int i = 0; i < data.length; i++) {
-				temp = String.valueOf(data[i]);
+		for (int pos = 0; pos < numOfDigits; pos++) { // per digit
+			for (int i = 0; i < data.length; i++) { // per item in array
+				temp = String.valueOf(data[i]); // e.g. 213
+				// from right to left
+				// e.g. 213.charAt(-1, 10) = 2
 				digit = Character.digit(temp.charAt(1-pos), 10);
+				// insert digit into the queue
 				digitKoer[digit].innKoe(data[i]);
 			}
 
 			// Gather numbers back into list
 			nr = 0;
-			for (int digitValue = 0; digitValue <= 9; digitValue++) {
-				while (!(digitKoer[digitValue].isEmpty())) {
-					nrObj = digitKoer[digitValue].utKoe();
-					data[nr] = nrObj;
-					nr++;
+			for (int digitValue = 0; digitValue <= 9; digitValue++) { // per digit value
+				while (!(digitKoer[digitValue].isEmpty())) { // so long as the queue isn't empty
+					nrObj = digitKoer[digitValue].utKoe(); // remove from queue
+					data[nr] = nrObj; // insert back into array
+					nr++; // next
 				}
 			}
-		}
+		} // outer loop
 	} // radixSort()
 
 }// class

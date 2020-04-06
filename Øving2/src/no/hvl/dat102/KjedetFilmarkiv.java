@@ -1,17 +1,16 @@
 package no.hvl.dat102;
 
-import no.hvl.dat102.Film;
 import no.hvl.dat102.adt.FilmarkivADT;
 
 public class KjedetFilmarkiv implements FilmarkivADT {
 	private int antall;
 	private LinearNode<Film> start = null;
 	// OBS! Ingen referanse til siste, kun start
-	
+
 	public KjedetFilmarkiv() {
 		this.antall = 0;
 	}
-	
+
 	@Override
 	public Film[] hentFilmTabell() {
 		Film[] filmTab = new Film[antall];
@@ -25,7 +24,7 @@ public class KjedetFilmarkiv implements FilmarkivADT {
 		}
 		return filmTab;
 	}
-	
+
 	@Override
 	public void leggTilFilm(Film film) {
 		LinearNode<Film> nyNode = new LinearNode<Film>(film);
@@ -33,7 +32,7 @@ public class KjedetFilmarkiv implements FilmarkivADT {
 		start = nyNode;
 		antall++;
 	}
-	
+
 	public boolean inneholder(Film element) {
 		LinearNode<Film> denne = start;
 		while (denne != null && !element.equals(denne.getElement())) {
@@ -41,7 +40,7 @@ public class KjedetFilmarkiv implements FilmarkivADT {
 		}
 		return (denne != null);
 	}
-	
+
 	@Override
 	public boolean slettFilm(int filmNr) {
 		boolean slettet = false;
@@ -50,30 +49,34 @@ public class KjedetFilmarkiv implements FilmarkivADT {
 		// 1. Tom liste? Ikke foreta noe
 		// 2. Elementet er det første. Oppdater start
 		// 3. Elementet er midt inni eller bakerst? Slett
-		if (start != null) {
-			// 2.
-			if (start.getElement().getFilmnr() == filmNr) {
-				start = start.getNeste();
-				antall--;
-				slettet = true;
-			} else {
-				// We only delete one movie at a time, even though
-				// there may be movies with duplicate movie numbers.
-				while (current != null && !slettet) {
-					// 3.
-					if (current.getElement().getFilmnr() == filmNr) {
-						prev.setNeste(current.getNeste());
-						antall--;
-						slettet = true;
-					}
-					prev = current;
-					current = current.getNeste();
+
+		// 1.
+		if (start == null) {
+			return slettet;
+		}
+
+		// 2.
+		if (start.getElement().getFilmnr() == filmNr) {
+			start = start.getNeste();
+			antall--;
+			slettet = true;
+		} else {
+			// We only delete one movie at a time, even though
+			// there may be movies with duplicate movie numbers.
+			while (current != null && !slettet) {
+				// 3.
+				if (current.getElement().getFilmnr() == filmNr) {
+					prev.setNeste(current.getNeste());
+					antall--;
+					slettet = true;
 				}
+				prev = current;
+				current = current.getNeste();
 			}
 		}
 		return slettet;
 	}
-	
+
 	@Override
 	public Film[] sokTittel(String delstreng) {
 
@@ -82,7 +85,7 @@ public class KjedetFilmarkiv implements FilmarkivADT {
 
 		// Part one: find amount in order to create array in correct length
 		int ant = 0;
-		
+
 		while (current != null) {
 			if (current.getElement().getTittel().toLowerCase().contains(delstreng)) {
 				ant++;
@@ -107,20 +110,20 @@ public class KjedetFilmarkiv implements FilmarkivADT {
 
 	@Override
 	public Film[] sokProdusent(String delstreng) {
-		
+
 		LinearNode<Film> current = start;
 		delstreng.toLowerCase();
-		
+
 		//Part one: find amount in order to create array in correct length
 		int ant = 0;
-		
+
 		while (current != null) {
 			if (current.getElement().getProdusent().toLowerCase().contains(delstreng)) {
 				ant++;
 			}
 			current = current.getNeste();
 		}
-		
+
 		//Part two: create array and copy objects
 		Film[] prodTab = new Film[ant];
 		int pos = 0;
@@ -134,22 +137,22 @@ public class KjedetFilmarkiv implements FilmarkivADT {
 
 		return prodTab;
 	}
-	
+
 	@Override
 	public void skrivUtTitler() {
 		System.out.println("=====TITLER=====");
-		
+
 		for (int i = 0; i < hentFilmTabell().length; i++) {
 			System.out.println(hentFilmTabell()[i].getTittel());
 		}
 	}
-	
+
 	@Override
 	public int antallSjanger(Sjanger sjanger) {
-		
+
 		int antallSjanger = 0;
 		LinearNode<Film> current = start;
-		
+
 		while (current != null) {
 			if (current.getElement().getSjanger() == sjanger) {
 				antallSjanger++;
@@ -159,7 +162,7 @@ public class KjedetFilmarkiv implements FilmarkivADT {
 
 		return antallSjanger;
 	}
-	
+
 	@Override
 	public int antall() {
 		return antall;
